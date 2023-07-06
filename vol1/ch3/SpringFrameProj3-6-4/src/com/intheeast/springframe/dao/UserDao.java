@@ -45,6 +45,19 @@ public class UserDao {
 	//   �� ������ �ذ��ϱ� ���ؼ���, Spring Framework�� ������ ��ġ��Ű�ų�, 
 	//   �Ǵ� JdbcTemplate.queryForObject() �޼��带 ������� �ʰ� ��ſ� 
 	//   jdbcTemplate.queryForStream() �޼��带 ����ϴ� ��� ������ �ڵ带 �����ؾ� �մϴ�.
+	// java.lang.NoSuchMethodError:
+	// org.springframework.dao.support.DataAccessUtils.nullableSingleResult()
+	// : DataAccessUtils.nullableSingleResult() 메서드는 
+	//   Spring Framework 5.x에서는 지원되지 않으며, 
+	//   대신에 DataAccessUtils.singleResult() 메서드를 사용해야 합니다. 
+	//   JdbcTemplate.queryForObject() 메서드를 사용하는 경우 Spring Framework 5.x에서 추가된 
+	//   DataAccessUtils.nullableSingleResult() 메서드를 함께 사용해야 합니다.
+	//   따라서, JdbcTemplate.queryForObject() 메서드를 호출하는 코드에서 
+	//   Spring Framework의 DataAccessUtils 클래스의 메서드를 호출하면서 
+	//   Spring Framework 버전 충돌로 인해 NoSuchMethodError 예외가 발생할 수 있습니다.
+	//   이 문제를 해결하려면, Spring Framework의 버전을 확인하고, 
+	//   해당 버전에 맞게 JdbcTemplate.queryForObject() 메서드를 호출하거나 
+	//   jdbcTemplate.queryForStream() 메서드를 사용하는 등 적절한 대응을 해주셔야 합니다.
 	/*public Optional<User> get(String id) {
 		String sql = "select * from users where id = ?";
 		User user = jdbcTemplate.queryForObject(sql, userRowMapper(), id);
@@ -74,7 +87,7 @@ public class UserDao {
 	};*/
 	
 	public Optional<User> get(String id) throws SQLException {
-	    String sql = "select * from users where id = ?";	    		
+	    String sql = "select * from users where id = ?";
 	    
 	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, userRowMapper(), id)) {
 	        return stream.findFirst();
