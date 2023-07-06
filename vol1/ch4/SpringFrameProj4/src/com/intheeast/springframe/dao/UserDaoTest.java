@@ -1,4 +1,4 @@
-package com.kitec.springframe.dao;
+package com.intheeast.springframe.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +21,7 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.domain.User;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestDaoFactory.class})
@@ -38,9 +38,9 @@ public class UserDaoTest {
 	@BeforeEach
 	public void setUp() {	
 		
-		this.user1 = new User("gyumee", "¹Ú¼ºÃ¶", "springno1");
-		this.user2 = new User("leegw700", "ÀÌ±æ¿ø", "springno2");
-		this.user3 = new User("bumjin", "¹Ú¹üÁø", "springno3");
+		this.user1 = new User("gyumee", "ï¿½Ú¼ï¿½Ã¶", "springno1");
+		this.user2 = new User("leegw700", "ï¿½Ì±ï¿½ï¿½", "springno2");
+		this.user3 = new User("bumjin", "ï¿½Ú¹ï¿½ï¿½ï¿½", "springno3");
 	}
 	
 	@Test
