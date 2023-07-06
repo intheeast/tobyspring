@@ -22,15 +22,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.intheeast.springframe.domain.User;
 
 
-//@ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = {TestDaoFactory.class})
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {TestDaoFactory.class})
 //@DirtiesContext
 public class UserDaoTest { 
 	
-//	@Autowired
-//	ApplicationContext context;
-//	
-//	@Autowired
+	@Autowired
+	ApplicationContext context;
+	
+	//@Autowired
 	private UserDao dao;
 	
 	private User user1;
@@ -38,15 +38,15 @@ public class UserDaoTest {
 	private User user3;	
 		
 	@BeforeEach
-	public void setUp() {	
+	public void setUp() {		
 		
-		//this.dao = this.context.getBean("userDao", UserDao.class);
-		dao = new UserDao();
-		DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost:3306/sbdt_db1?characterEncoding=UTF-8", 
-				"root", 
-				"1234", 
-				true);
-		dao.setDataSource(dataSource);
+		this.dao = this.context.getBean("userDao", UserDao.class);
+//		dao = new UserDao();
+//		DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost:3306/sbdt_db1?characterEncoding=UTF-8", 
+//				"root", 
+//				"1234", 
+//				true);
+//		dao.setDataSource(dataSource);
 		
 		user1 = new User("user1", "sungkim", "5678");
 		user2 = new User("user2", "brucelee", "9012");

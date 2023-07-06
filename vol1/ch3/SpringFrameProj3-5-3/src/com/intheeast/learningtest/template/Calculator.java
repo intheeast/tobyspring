@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Calculator {
 	
 	public Integer calcSum(String filepath) throws IOException {
+		
 		LineCallback<Integer> sumCallback = 
 			new LineCallback<Integer>() {
 				public Integer doSomethingWithLine(String line, Integer value) {

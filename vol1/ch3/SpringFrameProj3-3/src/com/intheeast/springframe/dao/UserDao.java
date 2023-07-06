@@ -1,4 +1,4 @@
-package com.intheeast.springframe5.dao;
+package com.intheeast.springframe.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,13 +9,17 @@ import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import com.intheeast.springframe5.domain.User;
+import com.intheeast.springframe.domain.User;
 
 public class UserDao {
 	private DataSource dataSource;
 	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+	
+	public DataSource getDataSource() {
+		return this.dataSource;
 	}
 	
 	public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {

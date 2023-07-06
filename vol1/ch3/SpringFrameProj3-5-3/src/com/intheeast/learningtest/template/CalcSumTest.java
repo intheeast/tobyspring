@@ -17,7 +17,7 @@ public class CalcSumTest {
 		String getClass = getClass().toString();
 		System.out.println("setUp:" + getClass);
 		this.numFilepath = getClass().getResource("numbers.txt").getPath();
-		//System.out.println("setUp:numFilepath" + this.numFilepath);
+		System.out.println("setUp:numFilepath" + this.numFilepath);
 	}
 	
 	@Test public void sumOfNumbers() throws IOException {

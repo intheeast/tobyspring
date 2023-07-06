@@ -1,4 +1,4 @@
-package com.intheeast.springframe5.dao;
+package com.intheeast.springframe.dao;
 
 import javax.sql.DataSource;
 
@@ -18,6 +18,11 @@ public class TestDaoFactory {
 		dataSource.setUrl("jdbc:mysql://localhost:3306/testdb?characterEncoding=UTF-8");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1234");
+		
+//		dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
+//		dataSource.setUrl("jdbc:mysql://192.168.0.26:3306/testdb?characterEncoding=UTF-8");
+//		dataSource.setUsername("testdb1");
+//		dataSource.setPassword("1234");
 
 		return dataSource;
 	}

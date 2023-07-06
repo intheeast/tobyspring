@@ -1,4 +1,4 @@
-package com.intheeast.springframe5.dao;
+package com.intheeast.springframe.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

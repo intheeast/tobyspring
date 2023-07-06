@@ -30,9 +30,9 @@ public class UserDaoTest {
 	@BeforeEach
 	public void setUp() {	
 		
-		this.user1 = new User("gyumee", "�ڼ�ö", "springno1");
-		this.user2 = new User("leegw700", "�̱��", "springno2");
-		this.user3 = new User("bumjin", "�ڹ���", "springno3");
+		this.user1 = new User("gyumee", "sungkim", "springno1");
+		this.user2 = new User("leegw700", "brucelee", "springno2");
+		this.user3 = new User("bumjin", "haechoi", "springno3");
 	}
 	
 	@Test
@@ -44,6 +44,7 @@ public class UserDaoTest {
 		dao.add(user2);
 		assertEquals(dao.getCount(), 2);
 		
+						
 		Optional<User> Optuserget1 = dao.get(user1.getId());
 		if(!Optuserget1.isEmpty()) {
 			User userget = Optuserget1.get();

@@ -1,8 +1,12 @@
-package com.intheeast.springframe5.dao;
+package com.intheeast.springframe.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,10 +15,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.intheeast.springframe5.domain.User;
+import com.intheeast.springframe.domain.User;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestDaoFactory.class})
@@ -79,5 +84,10 @@ public class UserDaoTest {
 		Assertions.assertThrows(EmptyResultDataAccessException.class, 
 				() -> {dao.get("unknown_id");});		
 	}	
+	
+//	@Test
+//	public void exhaust() throws SQLException {
+//		
+//	}
 
 }

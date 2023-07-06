@@ -38,7 +38,9 @@ public class UserDao {
 	};
 	
 	public Optional<User> get(String id) throws SQLException {
-	    String sql = "select * from users where id = ?";	    		
+	    String sql = "select * from users where id = ?";	
+	    
+	    //jdbcTemplate.queryForObject(sql, userRowMapper);
 	    
 	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, userRowMapper, id)) {
 	        return stream.findFirst();

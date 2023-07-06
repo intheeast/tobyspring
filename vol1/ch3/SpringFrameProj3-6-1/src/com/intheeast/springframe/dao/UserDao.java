@@ -28,6 +28,8 @@ public class UserDao {
 						user.getId(), 
 						user.getName(), 
 						user.getPassword());
+		
+		//this.jdbcTemplate.update
 	}
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
