@@ -28,6 +28,13 @@ public class TestDaoFactory {
 		userDaoJdbc.setDataSource(dataSource());
 		return userDaoJdbc;
 	}
+	
+	@Bean
+	public UserDaoSql userDaosql() {
+		UserDaoSql userDaoSql = new UserDaoSql();
+		return userDaoSql;
+	}
+
 }
 
 

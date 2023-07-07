@@ -91,7 +91,7 @@ public class UserDao {
 			rs.next();
 			return rs.getInt(1);
 		} catch (SQLException e) {
-			throw e;
+			throw e;			
 		} finally {
 			if ( rs != null) {
 				try {
