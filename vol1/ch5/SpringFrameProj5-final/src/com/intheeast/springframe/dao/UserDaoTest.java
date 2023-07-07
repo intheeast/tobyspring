@@ -40,10 +40,9 @@ public class UserDaoTest {
 		
 	@BeforeEach
 	public void setUp() {	
-		
-		this.user1 = new User("gyumee", "�ڼ�ö", "springno1", "user1@ksug.org", Level.BASIC, 1, 0);
-		this.user2 = new User("leegw700", "�̱��", "springno2", "user2@ksug.org", Level.SILVER, 55, 10);
-		this.user3 = new User("bumjin", "�ڹ���", "springno3", "user3@ksug.org", Level.GOLD, 100, 40);
+		this.user1 = new User("gyumee", "박성철", "springno1", "user1@ksug.org", Level.BASIC, 1, 0);
+		this.user2 = new User("leegw700", "이길원", "springno2", "user2@ksug.org", Level.SILVER, 55, 10);
+		this.user3 = new User("bumjin", "박범진", "springno3", "user3@ksug.org", Level.GOLD, 100, 40);
 	}
 	
 	@Test
@@ -165,7 +164,7 @@ public class UserDaoTest {
 		dao.add(user1);
 		dao.add(user2);
 		
-		user1.setName("���α�");
+		user1.setName("오민규");
 		user1.setPassword("springo6");
 		user1.setEmail("user6@ksug.org");
 		user1.setLevel(Level.GOLD);
