@@ -1,8 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>SpringFrameProj5-1-5</groupId>
-  <artifactId>SpringFrameProj5-1-5</artifactId>
+  <groupId>SpringFrameProjects5-1-5</groupId>
+  <artifactId>SpringFrameProjects5-1-5</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
   <dependencies>
   	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 	<dependency>
@@ -47,6 +48,7 @@
 	    <!-- <scope>test</scope> -->
 	</dependency>
   </dependencies>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

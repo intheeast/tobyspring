@@ -1,7 +1,6 @@
 package com.intheeast.springframe.domain;
 
 
-
 public class User {
 	String id;
 	String name;

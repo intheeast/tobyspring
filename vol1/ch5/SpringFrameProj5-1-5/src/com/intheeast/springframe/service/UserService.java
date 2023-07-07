@@ -2,9 +2,9 @@ package com.intheeast.springframe.service;
 
 import java.util.List;
 
-import com.kitec.springframe.dao.UserDao;
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 
 public class UserService {
