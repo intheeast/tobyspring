@@ -21,8 +21,8 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 
 

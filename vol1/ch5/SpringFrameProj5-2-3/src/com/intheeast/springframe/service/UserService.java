@@ -8,9 +8,9 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import com.kitec.springframe.dao.UserDao;
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 public class UserService {
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;

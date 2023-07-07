@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
-import com.kitec.springframe.dao.UserDaoJdbc;
+import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 public class TestServiceFactory {

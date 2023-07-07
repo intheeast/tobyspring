@@ -21,12 +21,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 //import org.springframework.mail.MailSender;
 
-import com.kitec.springframe.dao.UserDao;
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
-import static com.kitec.springframe.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
-import static com.kitec.springframe.service.UserService.MIN_RECCOMEND_FOR_GOLD;
+import static com.intheeast.springframe.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
+import static com.intheeast.springframe.service.UserService.MIN_RECCOMEND_FOR_GOLD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 

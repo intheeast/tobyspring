@@ -13,8 +13,8 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 
 

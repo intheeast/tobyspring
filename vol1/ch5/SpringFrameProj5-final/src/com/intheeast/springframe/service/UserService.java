@@ -8,9 +8,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.kitec.springframe.dao.UserDao;
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 public class UserService {
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
