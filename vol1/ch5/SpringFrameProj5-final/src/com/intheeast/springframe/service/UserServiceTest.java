@@ -1,10 +1,22 @@
 package com.intheeast.springframe.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -74,6 +87,59 @@ public class UserServiceTest {
 		assertEquals(request.get(1), users.get(3).getEmail());		
 	}
 	
+	@Test
+	public void sendEmailToGmail() throws UnsupportedEncodingException {
+		String host = "smtp.gmail.com";
+        int port = 587; // TLS : 587, SSL : 465
+        String username = "swseokitec@gmail.com";  // 발신자 Gmail 계정
+        String password = "kmwmvsbajccozsxc";  // 발신자 Gmail 계정 비밀번호
+
+        // 수신자 이메일 주소
+        String toAddress = "intheeast0305@gmail.com";
+
+        // 메일 속성 설정
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
+
+        // 인증 객체 생성
+        Authenticator authenticator = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        };
+
+        // 세션 생성
+        Session session = Session.getInstance(props, authenticator);
+
+        try {
+            // MimeMessage 생성
+        	MimeMessage message = new MimeMessage(session);
+            
+//            MimeMessageHelper mailHelper = new MimeMessageHelper(message, true, "UTF-8");
+//            
+//            mailHelper.setFrom(from);
+//            mailHelper.setTo(to);
+//            mailHelper.setSubject(subject);
+//            mailHelper.setText(content, true);
+            
+        	message.setFrom(new InternetAddress(username));
+        	message.setRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+            message.setSubject(MimeUtility.encodeText("반가워요", "UTF-8", "B"));
+            message.setText("테스트 메일입니다.", "UTF-8");
+
+            // 메일 전송
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            System.out.println("Failed to send email. Error message: " + e.getMessage());
+            fail("This sendEmailToGmail test is failed!!!");
+        }
+    }	
+	
 	static class MockMailSender implements MailSender {
 		private List<String> requests = new ArrayList<String>();	
 		
@@ -81,7 +147,7 @@ public class UserServiceTest {
 			return requests;
 		}
 
-		public void send(SimpleMailMessage mailMessage) throws MailException {
+		public void send(SimpleMailMessage mailMessage) /*throws MailException*/ {
 			requests.add(mailMessage.getTo()[0]);  
 		}
 
