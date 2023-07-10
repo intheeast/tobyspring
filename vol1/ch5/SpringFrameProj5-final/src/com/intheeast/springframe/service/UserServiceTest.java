@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -89,6 +90,9 @@ public class UserServiceTest {
 	
 	@Test
 	public void sendEmailToGmail() throws UnsupportedEncodingException {
+		//JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		SimpleMailMessage emailMessage = new SimpleMailMessage();
+		
 		String host = "smtp.gmail.com";
         int port = 587; // TLS : 587, SSL : 465
         String username = "swseokitec@gmail.com";  // 발신자 Gmail 계정

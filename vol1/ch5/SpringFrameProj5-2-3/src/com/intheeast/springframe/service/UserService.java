@@ -70,4 +70,5 @@ public class UserService {
 		if (user.getLevel() == null) user.setLevel(Level.BASIC);
 		userDao.add(user);
 	}
+	
 }

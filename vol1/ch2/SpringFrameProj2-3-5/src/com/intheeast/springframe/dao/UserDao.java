@@ -21,7 +21,7 @@ public class UserDao {
 	public void add(User user) throws ClassNotFoundException, SQLException {		
 		
 		Connection c = this.dataSource.getConnection();
-
+		
 		PreparedStatement ps = c.prepareStatement(
 			"insert into users(id, name, password) values(?,?,?)");
 		

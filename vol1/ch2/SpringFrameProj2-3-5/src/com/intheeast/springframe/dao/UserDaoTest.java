@@ -31,7 +31,7 @@ public class UserDaoTest {
 		
 	@BeforeEach
 	public void setUp() {	
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		ApplicationContext context = new AnnotationConfigApplicationContext(TestDaoFactory.class);
 		
 		this.dao = context.getBean("userDao", UserDao.class);
 		user1 = new User("user1", "sungkim", "5678");

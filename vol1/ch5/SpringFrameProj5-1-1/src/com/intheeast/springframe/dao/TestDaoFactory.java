@@ -12,7 +12,8 @@ public class TestDaoFactory {
 	@Bean
 	public DataSource dataSource() {
 		
-		SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+		SimpleDriverDataSource dataSource = new SimpleDriverDataSource();// Connection Pool x
+		//HikariDataSource dataSource = new HikariDataSource(); //Connection Pool o
 		
 		dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
 		dataSource.setUrl("jdbc:mysql://localhost:3306/testdb?characterEncoding=UTF-8");

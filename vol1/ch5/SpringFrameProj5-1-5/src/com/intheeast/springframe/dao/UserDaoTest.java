@@ -170,7 +170,7 @@ public class UserDaoTest {
 		user1.setRecommend(999);
 		dao.update(user1);
 		
-		Optional<User> Optuser1update = dao.get(user1.getId());
+		Optional<User> Optuser1update = dao.get(user1.getId()); ////////////////
 		
 		if(!Optuser1update.isEmpty()) {
 			User user1update = Optuser1update.get();
