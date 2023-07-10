@@ -1,4 +1,4 @@
-package com.kitec.springframe.dao;
+package com.intheeast.springframe.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,8 +21,8 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 
 
@@ -41,9 +41,9 @@ public class UserDaoTest {
 	@BeforeEach
 	public void setUp() {	
 		
-		this.user1 = new User("gyumee", "¹Ú¼ºÃ¶", "springno1", "user1@ksug.org", Level.BASIC, 1, 0);
-		this.user2 = new User("leegw700", "ÀÌ±æ¿ø", "springno2", "user2@ksug.org", Level.SILVER, 55, 10);
-		this.user3 = new User("bumjin", "¹Ú¹üÁø", "springno3", "user3@ksug.org", Level.GOLD, 100, 40);
+		this.user1 = new User("gyumee", "ï¿½Ú¼ï¿½Ã¶", "springno1", "user1@ksug.org", Level.BASIC, 1, 0);
+		this.user2 = new User("leegw700", "ï¿½Ì±ï¿½ï¿½", "springno2", "user2@ksug.org", Level.SILVER, 55, 10);
+		this.user3 = new User("bumjin", "ï¿½Ú¹ï¿½ï¿½ï¿½", "springno3", "user3@ksug.org", Level.GOLD, 100, 40);
 	}
 	
 	@Test
@@ -165,7 +165,7 @@ public class UserDaoTest {
 		dao.add(user1);
 		dao.add(user2);
 		
-		user1.setName("¿À¹Î±Ô");
+		user1.setName("ï¿½ï¿½ï¿½Î±ï¿½");
 		user1.setPassword("springo6");
 		user1.setEmail("user6@ksug.org");
 		user1.setLevel(Level.GOLD);

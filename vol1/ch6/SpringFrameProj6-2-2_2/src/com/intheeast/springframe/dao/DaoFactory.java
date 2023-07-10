@@ -1,4 +1,4 @@
-package com.kitec.springframe.dao;
+package com.intheeast.springframe.dao;
 
 import javax.sql.DataSource;
 

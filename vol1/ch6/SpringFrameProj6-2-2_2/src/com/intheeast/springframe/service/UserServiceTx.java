@@ -1,10 +1,10 @@
-package com.kitec.springframe.service;
+package com.intheeast.springframe.service;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.domain.User;
 
 
 public class UserServiceTx implements UserService {

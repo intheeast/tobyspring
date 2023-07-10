@@ -1,13 +1,13 @@
-package com.kitec.springframe.service;
+package com.intheeast.springframe.service;
 
 import java.util.List;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
-import com.kitec.springframe.dao.UserDao;
-import com.kitec.springframe.domain.Level;
-import com.kitec.springframe.domain.User;
+import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.domain.Level;
+import com.intheeast.springframe.domain.User;
 
 
 public class UserServiceImpl implements UserService {
@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setFrom("useradmin@ksug.org");
-		mailMessage.setSubject("Upgrade ¾È³»");
-		mailMessage.setText("»ç¿ëÀÚ´ÔÀÇ µî±ÞÀÌ " + user.getLevel().name());
+		mailMessage.setSubject("Upgrade ï¿½È³ï¿½");
+		mailMessage.setText("ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ " + user.getLevel().name());
 		
 		this.mailSender.send(mailMessage);
 	}

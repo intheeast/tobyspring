@@ -1,4 +1,4 @@
-package com.kitec.springframe.service;
+package com.intheeast.springframe.service;
 
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;

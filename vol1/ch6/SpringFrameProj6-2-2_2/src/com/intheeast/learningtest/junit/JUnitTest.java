@@ -1,4 +1,4 @@
-package com.kitec.learningtest.junit;
+package com.intheeast.learningtest.junit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

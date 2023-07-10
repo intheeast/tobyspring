@@ -1,4 +1,4 @@
-package com.kitec.learningtest.junit;
+package com.intheeast.learningtest.junit;
 
 import org.springframework.context.annotation.Configuration;
 
