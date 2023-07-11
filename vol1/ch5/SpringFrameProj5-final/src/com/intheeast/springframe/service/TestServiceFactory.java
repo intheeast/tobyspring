@@ -1,11 +1,14 @@
 package com.intheeast.springframe.service;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.intheeast.springframe.dao.UserDaoJdbc;
 
@@ -37,7 +40,7 @@ public class TestServiceFactory {
 		userService.setUserDao(userDao());
 		userService.setTransactionManager(transactionManager());
 		//<property name="mailSender" ref="mailSender" />
-		userService.setMailSender(mailSender());
+		userService.setMailSender(mailSenderImpl()/*mailSender()*/);
 		//userService.setDataSource(dataSource());
 		return userService;
 	}
@@ -45,7 +48,29 @@ public class TestServiceFactory {
 	@Bean
 	public DummyMailSender mailSender() {
 		DummyMailSender dummyMailSender = new DummyMailSender();
+		//dummyMailSender.setJavaMailProperties(properites());		
 		return dummyMailSender;
+	}
+	
+	@Bean
+	public JavaMailSenderImpl mailSenderImpl() {
+		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+		
+		mailSenderImpl.setJavaMailProperties(properites());		
+		
+		mailSenderImpl.setHost("smtp.gmail.com");
+		mailSenderImpl.setPort(587); // TLS : 587, SSL : 465
+		mailSenderImpl.setUsername("swseokitec@gmail.com"); 
+		mailSenderImpl.setPassword("kmwmvsbajccozsxc");
+		return mailSenderImpl;
+	}
+	
+	@Bean
+	public Properties properites() {
+		Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        return props;
 	}
 	
 	@Bean

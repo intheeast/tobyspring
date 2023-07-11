@@ -2,8 +2,14 @@ package com.intheeast.springframe.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -18,6 +24,7 @@ public class UserService {
 
 	private UserDao userDao;
 	private MailSender mailSender;
+//	private JavaMailSenderImpl  mailSender;
 	private PlatformTransactionManager transactionManager;
 
 	public void setUserDao(UserDao userDao) {
@@ -67,17 +74,41 @@ public class UserService {
 	}
 	
 	private void sendUpgradeEMail(User user) {
+				
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setFrom("useradmin@ksug.org");
-		mailMessage.setSubject("Upgrade �ȳ�");
-		mailMessage.setText("����ڴ��� ����� " + user.getLevel().name());
+		mailMessage.setSubject("Upgrade 반가워요");
+		mailMessage.setText("테스트 메일입니다. " + user.getLevel().name());
 		
 		this.mailSender.send(mailMessage);
 	}
+	
 	
 	public void add(User user) {
 		if (user.getLevel() == null) user.setLevel(Level.BASIC);
 		userDao.add(user);
 	}
+	
+//	private void sendUpgradeEMailThroughJAVAMAIL(User user) {
+//		
+//		MimeMessage mailMessage = mailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
+//
+//        try {
+//            helper.setFrom(mailSender.getUsername());
+//            helper.setTo(user.getEmail()); // 수신자 이메일 주소
+//            helper.setSubject("반가워요"); // 제목
+//            helper.setText("테스트 메일입니다."); // 내용
+//
+//            mailSender.send(mailMessage);
+//
+//            System.out.println("Email sent successfully!");
+//        } catch (MessagingException e) {
+//            System.out.println("Failed to send email. Error message: " + e.getMessage());
+//            fail("This sendEmailToGmail test has failed!!!");
+//        }
+//		
+//		this.mailSender.send(mailMessage);
+//	}
 }
