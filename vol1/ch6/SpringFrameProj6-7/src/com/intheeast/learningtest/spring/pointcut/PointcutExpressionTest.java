@@ -17,9 +17,9 @@ public class PointcutExpressionTest {
 		tagetClassPointcutMatches("execution(* *(int,int))", false, false, true, true, false, false);
 		tagetClassPointcutMatches("execution(* *())", true, false, false, false, true, true);
 		
-		tagetClassPointcutMatches("execution(* com.intheeast.learningtest.spring.pointcut.Target.*(..))", true, true, true, true, true, false);
-		tagetClassPointcutMatches("execution(* com.intheeast.learningtest.spring.pointcut.*.*(..))", true, true, true, true, true, true);
-		tagetClassPointcutMatches("execution(* com.intheeast.learningtest.spring.pointcut..*.*(..))", true, true, true, true, true, true);
+		tagetClassPointcutMatches("execution(* com.kitec.learningtest.spring.pointcut.Target.*(..))", true, true, true, true, true, false);
+		tagetClassPointcutMatches("execution(* com.kitec.learningtest.spring.pointcut.*.*(..))", true, true, true, true, true, true);
+		tagetClassPointcutMatches("execution(* com.kitec.learningtest.spring.pointcut..*.*(..))", true, true, true, true, true, true);
 		tagetClassPointcutMatches("execution(* com..*.*(..))", true, true, true, true, true, true);
 		
 		//tagetClassPointcutMatches("execution(* com..*.*(..))", false, false, false, false, false, false);
