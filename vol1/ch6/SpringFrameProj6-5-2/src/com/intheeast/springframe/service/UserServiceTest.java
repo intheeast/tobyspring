@@ -15,6 +15,7 @@ import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -36,6 +37,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
+//	@Bean
+//	public UserServiceImpl userService() {
+//		UserServiceImpl userServiceImpl = new UserServiceImpl();
+//		userServiceImpl.setUserDao(userDao());
+//		userServiceImpl.setMailSender(mailSender());		
+//		return userServiceImpl;
+//	}
 	@Autowired UserService userService;	
 	@Autowired 
 	@Qualifier("testUserService")

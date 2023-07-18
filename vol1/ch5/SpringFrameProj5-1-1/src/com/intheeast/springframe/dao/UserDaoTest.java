@@ -47,7 +47,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void addAndGet() throws SQLException, ClassNotFoundException {				
+	public void addAndGet()  {				
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 		
@@ -71,7 +71,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void count() throws SQLException, ClassNotFoundException {		
+	public void count()  {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 
@@ -86,7 +86,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void getUserFailure() throws SQLException, ClassNotFoundException {		
+	public void getUserFailure()  {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);		
 		
@@ -95,7 +95,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void getAll() throws SQLException  {
+	public void getAll()   {
 		dao.deleteAll();
 		List<User> users0 = dao.getAll();
 		assertEquals(users0.size(), 0);
@@ -133,7 +133,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void duplciateKey() throws SQLException {
+	public void duplciateKey()  {
 		dao.deleteAll();
 		
 		dao.add(user1);

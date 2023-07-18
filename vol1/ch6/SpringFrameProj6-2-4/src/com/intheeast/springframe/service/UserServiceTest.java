@@ -139,7 +139,7 @@ public class UserServiceTest {
 		userServiceImpl.upgradeLevels();
 
 		verify(mockUserDao, times(2)).update(any(User.class));				  
-		verify(mockUserDao, times(2)).update(any(User.class));
+		//verify(mockUserDao, times(2)).update(any(User.class));
 		verify(mockUserDao).update(users.get(1));
 		assertEquals(users.get(1).getLevel(), Level.SILVER);
 		verify(mockUserDao).update(users.get(3));

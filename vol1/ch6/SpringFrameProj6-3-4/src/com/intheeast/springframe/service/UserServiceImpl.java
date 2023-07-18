@@ -24,6 +24,12 @@ public class UserServiceImpl implements UserService {
 		this.mailSender = mailSender;
 	}
 	
+	
+	public void add(User user) {
+		if (user.getLevel() == null) user.setLevel(Level.BASIC);
+		userDao.add(user);
+	}
+	
 	public void upgradeLevels() {
 		List<User> users = userDao.getAll();
 		for (User user : users) {
@@ -59,8 +65,5 @@ public class UserServiceImpl implements UserService {
 		this.mailSender.send(mailMessage);
 	}
 	
-	public void add(User user) {
-		if (user.getLevel() == null) user.setLevel(Level.BASIC);
-		userDao.add(user);
-	}
+	
 }

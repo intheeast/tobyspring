@@ -17,6 +17,10 @@ import com.intheeast.springframe.domain.User;
 
 public class UserDaoJdbc implements UserDao {
 	
+	public UserDaoJdbc() {
+		System.out.println("UserDaoJdbc DConstructor");
+	}
+	
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}

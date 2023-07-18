@@ -77,7 +77,7 @@ public class UserService {
 				
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(user.getEmail());
-		mailMessage.setFrom("useradmin@ksug.org");
+		mailMessage.setFrom("useradmin@ksug.org");//
 		mailMessage.setSubject("Upgrade 반가워요");
 		mailMessage.setText("테스트 메일입니다. " + user.getLevel().name());
 		

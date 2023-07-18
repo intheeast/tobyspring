@@ -41,7 +41,7 @@ public class UserDaoJdbc implements UserDao {
 
 	@Override
 	public void add(User user) {
-		System.out.println("UserDaoJdbc.add");
+		//System.out.println("UserDaoJdbc.add");
 		this.jdbcTemplate.update(
 				"insert into users(id, name, password, email, level, login, recommend) " +
 						"values(?,?,?,?,?,?,?)", 
@@ -51,7 +51,7 @@ public class UserDaoJdbc implements UserDao {
 
 	@Override
 	public Optional<User> get(String id) {
-		System.out.println("UserDaoJdbc.get");
+		//System.out.println("UserDaoJdbc.get");
 		String sql = "select * from users where id = ?";	    		
 	    
 	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, this.userMapper, id)) {
@@ -63,14 +63,14 @@ public class UserDaoJdbc implements UserDao {
 	
 	@Override
 	public void deleteAll() {
-		System.out.println("UserDaoJdbc.deleteAll");
+		//System.out.println("UserDaoJdbc.deleteAll");
 		this.jdbcTemplate.update("delete from users");
 
 	}
 	
 	@Override
 	public int getCount() {
-		System.out.println("UserDaoJdbc.getCount");
+		//System.out.println("UserDaoJdbc.getCount");
 		List<Integer> result = jdbcTemplate.query("select count(*) from users", 
 	    		(rs, rowNum) -> rs.getInt(1));
 	    return (int) DataAccessUtils.singleResult(result);
@@ -78,7 +78,7 @@ public class UserDaoJdbc implements UserDao {
 
 	@Override
 	public List<User> getAll() {
-		System.out.println("UserDaoJdbc.getAll");
+		//System.out.println("UserDaoJdbc.getAll");
 		return this.jdbcTemplate.query("select * from users order by id",
 				this.userMapper
 		);
@@ -86,7 +86,7 @@ public class UserDaoJdbc implements UserDao {
 
 	@Override
 	public void update(User user) {
-		System.out.println("UserDaoJdbc.update");
+		//System.out.println("UserDaoJdbc.update");
 		this.jdbcTemplate.update(
 				"update users set name = ?, password = ?, email = ?, level = ?, login = ?, " +
 						"recommend = ? where id = ? ", user.getName(), user.getPassword(), user.getEmail(), 

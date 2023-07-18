@@ -29,6 +29,8 @@ public class TransactionHandler implements InvocationHandler {
 
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
+		
+		System.out.println("TransactionHandler:invoke:" + method.getName());
 		if (method.getName().startsWith(pattern)) {
 			return invokeInTransaction(method, args);
 		} else {

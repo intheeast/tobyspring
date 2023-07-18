@@ -39,7 +39,7 @@ public class TestServiceFactory {
 		txProxyFactoryBean.setPattern("upgradeLevels");
 		txProxyFactoryBean.setServiceInterface(UserService.class);
 		return txProxyFactoryBean;
-	}
+	}	
 	
 	@Bean
 	public UserServiceImpl userServiceImpl() {
@@ -47,7 +47,7 @@ public class TestServiceFactory {
 		userServiceImpl.setUserDao(userDao());
 		userServiceImpl.setMailSender(mailSender());
 		return userServiceImpl;
-	}
+	}	
 	
 	@Bean
 	public DummyMailSender mailSender() {

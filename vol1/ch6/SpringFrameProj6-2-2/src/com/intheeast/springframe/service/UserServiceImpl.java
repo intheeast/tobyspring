@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setFrom("useradmin@ksug.org");
-		mailMessage.setSubject("Upgrade �ȳ�");
-		mailMessage.setText("����ڴ��� ����� " + user.getLevel().name());
+		mailMessage.setSubject("Upgrade 반가워요");
+		mailMessage.setText("등급을 축하 드려요. " + user.getLevel().name());
 		
 		this.mailSender.send(mailMessage);
 	}

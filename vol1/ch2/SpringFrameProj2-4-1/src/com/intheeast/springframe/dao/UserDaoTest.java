@@ -22,9 +22,10 @@ import com.intheeast.springframe.domain.User;
 @ContextConfiguration(classes = {DaoFactory.class})
 public class UserDaoTest { 
 	
-	@Autowired
-	ApplicationContext context;
+//	@Autowired
+//	ApplicationContext context;
 	
+	@Autowired
 	private UserDao dao;
 	
 	private User user1;
@@ -34,7 +35,7 @@ public class UserDaoTest {
 	@BeforeEach
 	public void setUp() {
 		
-		this.dao = this.context.getBean("userDao", UserDao.class);
+		//this.dao = this.context.getBean("userDao", UserDao.class);
 		user1 = new User("user1", "sungkim", "5678");
 		user2 = new User("user2", "brucelee", "9012");
 		user3 = new User("user3", "haechoi", "1234");

@@ -38,6 +38,7 @@ public class UserDao {
 	public User get(String id) throws ClassNotFoundException, SQLException {
 		
 		Connection c = this.dataSource.getConnection();
+		//c.setAutoCommit(true);
 		
 		PreparedStatement ps = c
 				.prepareStatement("select * from users where id = ?");

@@ -5,6 +5,7 @@ import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.util.PatternMatchUtils;
 
 public class NameMatchClassMethodPointcut extends NameMatchMethodPointcut {
+	
 	public void setMappedClassName(String mappedClassName) {
 		this.setClassFilter(new SimpleClassFilter(mappedClassName));
 	}

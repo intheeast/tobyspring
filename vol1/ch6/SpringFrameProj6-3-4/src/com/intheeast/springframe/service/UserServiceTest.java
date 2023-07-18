@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +44,7 @@ public class UserServiceTest {
 	@Autowired MailSender mailSender; 
 	@Autowired PlatformTransactionManager transactionManager;
 	@Autowired ApplicationContext context;
-	
+			
 	List<User> users;	// test fixture
 	
 	@BeforeEach
@@ -59,7 +60,7 @@ public class UserServiceTest {
 	}	
 	
 	@Test 
-	@DirtiesContext
+	//@DirtiesContext
 	public void upgradeLevels() throws Exception {
 		UserServiceImpl userServiceImpl = new UserServiceImpl(); 
 		
@@ -71,7 +72,7 @@ public class UserServiceTest {
 				
 		userServiceImpl.upgradeLevels();
 		
-		List<User> updated = mockUserDao.getUpdated();  
+		List<User> updated = mockUserDao.getUpdated();
 		assertEquals(updated.size(), 2);
 		checkUserAndLevel(updated.get(0), "joytouch", Level.SILVER); 
 		checkUserAndLevel(updated.get(1), "madnite1", Level.GOLD);
@@ -198,8 +199,8 @@ public class UserServiceTest {
 		}		
 	}
 	
+	
 	/*
-	 ���� 448 ������ �ڵ� ����
 	@Test
 	public void upgradeAllOrNothing() throws Exception {
 		TestUserService testUserService = new TestUserService(users.get(3).getId());  

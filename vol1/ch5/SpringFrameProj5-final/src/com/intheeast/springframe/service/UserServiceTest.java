@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -47,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
-	@Autowired 	UserService userService;	
+	@Autowired UserService userService;	
 	@Autowired UserDao userDao;	
 	@Autowired MailSender mailSender; 
 	@Autowired PlatformTransactionManager transactionManager;
@@ -66,13 +67,24 @@ public class UserServiceTest {
 				);
 	}
 	
-	@Test @DirtiesContext
+	
+	/*
+	 @Bean
+	public UserService userService() {
+		UserService userService = new UserService();
+		userService.setUserDao(userDao());
+		userService.setTransactionManager(transactionManager());		
+		userService.setMailSender(mailSenderImpl());		
+		return userService;
+	}
+	*/
+	@Test /*@DirtiesContext*/
 	public void upgradeLevels() throws Exception {
 		userDao.deleteAll();
 		for(User user : users) userDao.add(user);
 		
-//		MockMailSender mockMailSender = new MockMailSender();
-//		userService.setMailSender(mockMailSender);  
+		MockMailSender mockMailSender = new MockMailSender();
+		userService.setMailSender(mockMailSender);  
 				
 		userService.upgradeLevels();
 		
@@ -82,10 +94,10 @@ public class UserServiceTest {
 		checkLevelUpgraded(users.get(3), true);
 		checkLevelUpgraded(users.get(4), false);
 		
-//		List<String> request = mockMailSender.getRequests();  
-//		assertEquals(request.size(), 2);
-//		assertEquals(request.get(0), users.get(1).getEmail());
-//		assertEquals(request.get(1), users.get(3).getEmail());		
+		List<String> request = mockMailSender.getRequests();  
+		assertEquals(request.size(), 2);
+		assertEquals(request.get(0), users.get(1).getEmail());
+		assertEquals(request.get(1), users.get(3).getEmail());		
 	}	
 	
 	static class MockMailSender implements MailSender {

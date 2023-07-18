@@ -19,7 +19,7 @@ public class DynamicProxyTest {
 		
 		Hello proxiedHello = (Hello)Proxy.newProxyInstance(
 				getClass().getClassLoader(), 
-				new Class[] { Hello.class},
+				new Class[] { Hello.class },
 				new UppercaseHandler(new HelloTarget()));
 		
 //		Hello proxiedHello = new HelloUppercase(new HelloTarget());

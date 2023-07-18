@@ -14,6 +14,10 @@ import com.intheeast.springframe.domain.User;
 public class UserDao {
 	private DataSource dataSource;
 	
+	public UserDao() {
+		System.out.println("UserDao DConstructor");
+	}
+	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}	

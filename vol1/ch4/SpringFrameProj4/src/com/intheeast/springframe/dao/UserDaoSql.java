@@ -12,6 +12,10 @@ import com.intheeast.springframe.domain.User;
 // 
 public class UserDaoSql {
 	
+	public UserDaoSql() {
+		System.out.println("UserDaoSql DConstructor");
+	}
+	
 	private Connection getConnection() throws ClassNotFoundException,
 	SQLException {
 		Class.forName("com.mysql.jdbc.Driver");

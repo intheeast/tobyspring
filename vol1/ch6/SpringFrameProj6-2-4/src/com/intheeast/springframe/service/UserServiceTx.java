@@ -6,9 +6,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.intheeast.springframe.domain.User;
 
-
 public class UserServiceTx implements UserService {
-
+	
 	UserService userService;
 	PlatformTransactionManager transactionManager;
 

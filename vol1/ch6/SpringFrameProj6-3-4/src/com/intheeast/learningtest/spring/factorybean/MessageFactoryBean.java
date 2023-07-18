@@ -5,6 +5,10 @@ import org.springframework.beans.factory.FactoryBean;
 public class MessageFactoryBean implements FactoryBean<Message>{
 	String text;
 	
+	public MessageFactoryBean() {
+		System.out.println("MessageFactoryBean Default Constructor");
+	}
+	
 	public void setText(String text) {
 		this.text = text;
 	}

@@ -38,17 +38,15 @@ public class TestServiceFactory {
 	public UserService userService() {
 		UserService userService = new UserService();
 		userService.setUserDao(userDao());
-		userService.setTransactionManager(transactionManager());
-		//<property name="mailSender" ref="mailSender" />
+		userService.setTransactionManager(transactionManager());		
 		userService.setMailSender(mailSenderImpl()/*mailSender()*/);
-		//userService.setDataSource(dataSource());
+		
 		return userService;
 	}
 	
 	@Bean
 	public DummyMailSender mailSender() {
-		DummyMailSender dummyMailSender = new DummyMailSender();
-		//dummyMailSender.setJavaMailProperties(properites());		
+		DummyMailSender dummyMailSender = new DummyMailSender();		
 		return dummyMailSender;
 	}
 	
@@ -56,7 +54,7 @@ public class TestServiceFactory {
 	public JavaMailSenderImpl mailSenderImpl() {
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		
-		mailSenderImpl.setJavaMailProperties(properites());		
+		mailSenderImpl.setJavaMailProperties(properites());
 		
 		mailSenderImpl.setHost("smtp.gmail.com");
 		mailSenderImpl.setPort(587); // TLS : 587, SSL : 465

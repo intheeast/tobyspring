@@ -11,7 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.springframework.aop.ClassFilter;
+import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.MailException;
@@ -44,6 +48,8 @@ public class UserServiceTest {
 	
 	List<User> users;	// test fixture
 	
+	ClassFilter cf;
+	
 	@BeforeEach
 	public void setUp() {	
 		
@@ -58,7 +64,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void upgradeLevels() throws Exception {
-		UserServiceImpl userServiceImpl = new UserServiceImpl(); 
+		//UserServiceImpl userServiceImpl = new UserServiceImpl(); 
 		
 		MockUserDao mockUserDao = new MockUserDao(this.users);  
 		userServiceImpl.setUserDao(mockUserDao);
@@ -130,7 +136,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void mockUpgradeLevels() throws Exception {
-		UserServiceImpl userServiceImpl = new UserServiceImpl();
+		//UserServiceImpl userServiceImpl = new UserServiceImpl();
 
 		UserDao mockUserDao = mock(UserDao.class);	    
 		when(mockUserDao.getAll()).thenReturn(this.users);
@@ -208,13 +214,13 @@ public class UserServiceTest {
 		for(User user : users) userDao.add(user);
 		
 		try {
-			testUserService.upgradeLevels();   
+			txUserService.upgradeLevels();//testUserService.upgradeLevels();   
 			fail("TestUserServiceException expected"); 
 		}
 		catch(TestUserServiceException e) { 
 		}
 		
-		checkLevelUpgraded(users.get(1), true);
+		checkLevelUpgraded(users.get(1), false);
 	}
 	
 	static class TestUserService extends UserServiceImpl {
@@ -228,8 +234,49 @@ public class UserServiceTest {
 			if (user.getId().equals(this.id)) throw new TestUserServiceException();  
 			super.upgradeLevel(user);  
 		}
-	}
+	}	
+	
 	
 	static class TestUserServiceException extends RuntimeException {
+	}
+	
+	@Test
+	public void ClassNamePointcutAdvisor() {
+		NameMatchMethodPointcut classMethodPointcut = new NameMatchMethodPointcut() {
+			public ClassFilter getClassFilter() {
+				return new ClassFilter() {
+					public boolean matches(Class<?> clazz) {
+						return clazz.getSimpleName().startsWith("HelloT");
+					}
+				};
+			}
+		};
+		
+		classMethodPointcut.setMappedName("sayH*");
+		
+		class HelloWorld extends HelloTarget {};		
+		checkAdviced(new HelloWorld(), classMethodPointcut, false);
+		
+		class HelloToby extends HelloTarget {};
+		checkAdviced(new HelloToby(), classMethodPointcut, true);		
+		
+	}
+	
+	private void checkAdviced(Object target, Pointcut pointcut, boolean adviced) {
+		ProxyFactoryBean pfBean = new ProxyFactoryBean();
+		pfBean.setTarget(target);
+		pfBean.addAdvisor(new DefaultPointcutAdvisor(pointcut, new UpperCaseAdvice()));
+		Hello proxiedHello = (Hello)pfBean.getObject();
+		
+		if (adviced) {
+			assertEquals(proxiedHello.sayHello("Toby"), "HELLO TOBY");
+			assertEquals(proxiedHello.sayHi("Toby"), "HI TOBY");
+			assertEquals(proxiedHello.sayThanks("Toby"), "Thanks Toby");
+		}
+		else {
+			assertEquals(proxiedHello.sayHello("Toby"), "Hello Toby");
+			assertEquals(proxiedHello.sayHi("Toby"), "Hi Toby");
+			assertEquals(proxiedHello.sayThanks("Toby"), "Thanks Toby");
+		}
 	}
 }

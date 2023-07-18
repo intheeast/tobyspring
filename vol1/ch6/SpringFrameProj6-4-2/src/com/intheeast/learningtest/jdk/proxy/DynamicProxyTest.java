@@ -99,7 +99,11 @@ public class DynamicProxyTest {
 	public void proxyFactoryBean() {
 		ProxyFactoryBean pfBean = new ProxyFactoryBean();
 		pfBean.setTarget(new HelloTarget());
-		pfBean.addAdvice(new UppercaseAdvice());
+		pfBean.addAdvice(new UppercaseAdvice()); // addAdvice의 'add'라는 이름에서 알 수 있듯이,
+												 // ProxyFactoryBean에는 복수의 MethodInterruptor를 추가할 수 있다.
+												 // :이는 FactoryBean으로 프록시를 생성해서 사용할 때,
+												 //  새로운 부가 기능을 추가할 때마다 프록시와 프록시를 생성하는 팩토리 빈도 추가하는
+												 //  단점을 해결해 준다.
 
 		Hello proxiedHello = (Hello) pfBean.getObject();
 		
@@ -110,7 +114,7 @@ public class DynamicProxyTest {
 	
 	static class UppercaseAdvice implements MethodInterceptor {
 		public Object invoke(MethodInvocation invocation) throws Throwable {
-			String ret = (String)invocation.proceed();
+			String ret = (String)invocation.proceed(); // target object의 메소드를 내부적으로 호출.
 			return ret.toUpperCase();
 		}
 	}

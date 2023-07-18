@@ -22,7 +22,7 @@ public class UserDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);		
 	}	
 	
-	public void add(final User user) /*throws DataAccessException*/ {
+	public void add(final User user) {
 		this.jdbcTemplate.update("insert into users(id, name, password) values(?,?,?)",
 						user.getId(), 
 						user.getName(), 
@@ -37,7 +37,7 @@ public class UserDao {
 	    return user;
 	};
 	
-	public Optional<User> get(String id) throws DataAccessException {
+	public Optional<User> get(String id) {
 	    String sql = "select * from users where id = ?";	
 	    
 	    //jdbcTemplate.queryForObject(sql, userRowMapper);
@@ -49,21 +49,17 @@ public class UserDao {
 	    }
 	}	
 	
-	public void deleteAll() throws DataAccessException {
+	public void deleteAll() {
 		this.jdbcTemplate.update("delete from users");
-//		try {
-//			
-//		}
-//		catch(Da)
 	}	
 	
-	public int getCount() throws DataAccessException {
+	public int getCount() {
 	    List<Integer> result = jdbcTemplate.query("select count(*) from users", 
 	    		(rs, rowNum) -> rs.getInt(1));
 	    return (int) DataAccessUtils.singleResult(result);
 	}	
 	
-	public List<User> getAll() throws DataAccessException {
+	public List<User> getAll() {
 		return this.jdbcTemplate.query("select * from users order by id",
 				userRowMapper
 		);

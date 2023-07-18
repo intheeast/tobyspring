@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -32,7 +33,9 @@ import static com.intheeast.springframe.service.UserServiceImpl.MIN_RECCOMEND_FO
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
-	@Autowired 	UserService userService;	
+	@Autowired 
+	//@Qualifier("userService") //("userService1")
+	UserService userService;	
 	@Autowired UserDao userDao;	
 	@Autowired UserServiceImpl userServiceImpl;
 	@Autowired MailSender mailSender; 
@@ -168,6 +171,7 @@ public class UserServiceTest {
 	public void upgradeAllOrNothing() throws Exception {
 		TestUserService testUserService = new TestUserService(users.get(3).getId());  
 		testUserService.setUserDao(this.userDao); 
+		
 		testUserService.setMailSender(this.mailSender);
 		
 		UserServiceTx txUserService = new UserServiceTx();
@@ -178,13 +182,13 @@ public class UserServiceTest {
 		for(User user : users) userDao.add(user);
 		
 		try {
-			testUserService.upgradeLevels();   
+			txUserService.upgradeLevels();   
 			fail("TestUserServiceException expected"); 
 		}
 		catch(TestUserServiceException e) { 
 		}
 		
-		checkLevelUpgraded(users.get(1), true);
+		checkLevelUpgraded(users.get(1), false);
 	}
 	
 	static class TestUserService extends UserServiceImpl {

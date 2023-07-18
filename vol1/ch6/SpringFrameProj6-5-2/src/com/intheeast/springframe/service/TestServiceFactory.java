@@ -52,10 +52,11 @@ public class TestServiceFactory {
 	}
 
 	@Bean
-	public NameMatchMethodPointcut transactionPointcut() {
-		NameMatchMethodPointcut nameMatchMethodPointcut = new NameMatchMethodPointcut();
-		nameMatchMethodPointcut.setMappedName("upgrade*");
-		return nameMatchMethodPointcut;
+	public NameMatchClassMethodPointcut transactionPointcut() {
+		NameMatchClassMethodPointcut nameMatchClassMethodPointcut = new NameMatchClassMethodPointcut();
+		nameMatchClassMethodPointcut.setMappedClassName("*ServiceImpl");
+		nameMatchClassMethodPointcut.setMappedName("upgrade*");
+		return nameMatchClassMethodPointcut;
 	}
 
 	@Bean

@@ -31,7 +31,7 @@ public class TestServiceFactory {
 		return userDaoJdbc;
 	}
 	
-	@Bean
+	@Bean /*(name="userService1")*/
 	public UserService userService() {
 		UserServiceTx userServiceTx = new UserServiceTx();
 		userServiceTx.setTransactionManager(transactionManager());
@@ -39,8 +39,8 @@ public class TestServiceFactory {
 		return userServiceTx;
 	}
 	
-	@Bean
-	public UserServiceImpl userServiceImpl() {
+	@Bean /*(name="userService2")*/
+	public UserServiceImpl/*UserService*/ userServiceImpl() {
 		UserServiceImpl userServiceImpl = new UserServiceImpl();
 		userServiceImpl.setUserDao(userDao());
 		userServiceImpl.setMailSender(mailSender());
