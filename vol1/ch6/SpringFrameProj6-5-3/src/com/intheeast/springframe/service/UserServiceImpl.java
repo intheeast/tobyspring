@@ -1,6 +1,7 @@
 package com.intheeast.springframe.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -63,4 +64,9 @@ public class UserServiceImpl implements UserService {
 		if (user.getLevel() == null) user.setLevel(Level.BASIC);
 		userDao.add(user);
 	}
+	
+	public void deleteAll() { 	userDao.deleteAll(); }
+	public Optional<User> get(String id) { return userDao.get(id); }
+	public List<User> getAll() { return userDao.getAll(); }
+	public void update(User user) { userDao.update(user); }
 }
