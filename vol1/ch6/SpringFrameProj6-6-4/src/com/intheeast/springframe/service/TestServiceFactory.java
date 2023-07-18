@@ -69,6 +69,9 @@ public class TestServiceFactory {
         return new TransactionInterceptor(transactionManager(), txAttributeSource);
     }
 	
+//	<aop:config>
+//		<aop:advisor advice-ref="transactionAdvice" pointcut="bean(*Service)">
+//	</aop:config>
 	@Bean
     public DefaultPointcutAdvisor transactionAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();

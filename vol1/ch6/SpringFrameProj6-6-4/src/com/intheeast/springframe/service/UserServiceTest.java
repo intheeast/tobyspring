@@ -216,7 +216,8 @@ public class UserServiceTest {
 	public void readOnlyTransactionAttribute() {
 		
 		Assertions.assertThrows(TransientDataAccessResourceException.class, 
-				() -> {testUserService.getAll();});		
+				() -> {testUserService.getAll();}); // 트랜잭션 속성이 제대로 적용되었다면,
+													// 여기서 읽기 전용 속성을 위반하였기 때문에 예외가 발생해야 한다.
 	}
 	
 	
@@ -232,7 +233,7 @@ public class UserServiceTest {
 		
 		public List<User> getAll() {
 			for(User user : super.getAll()) {
-				super.update(user);
+				super.update(user); // 강제로 쓰기 시도를 한다. 여기서 읽기 전용 속성으로 인한 예외가 발생해야 한다.
 			}
 			return null;
 		}
