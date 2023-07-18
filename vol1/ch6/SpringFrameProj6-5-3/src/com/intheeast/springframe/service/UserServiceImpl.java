@@ -63,10 +63,6 @@ public class UserServiceImpl implements UserService {
 	public void add(User user) {
 		if (user.getLevel() == null) user.setLevel(Level.BASIC);
 		userDao.add(user);
-	}
+	}	
 	
-	public void deleteAll() { 	userDao.deleteAll(); }
-	public Optional<User> get(String id) { return userDao.get(id); }
-	public List<User> getAll() { return userDao.getAll(); }
-	public void update(User user) { userDao.update(user); }
 }

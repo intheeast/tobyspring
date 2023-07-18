@@ -3,30 +3,17 @@ package com.intheeast.springframe.service;
 import javax.sql.DataSource;
 
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
-import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
-import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
-import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
-@EnableAspectJAutoProxy
-//@EnableTransactionManagement
-//@ComponentScan(basePackages = "intheeast.springframe")
 public class TestServiceFactory {
 	@Bean
 	public DataSource dataSource() {
@@ -39,50 +26,44 @@ public class TestServiceFactory {
 		dataSource.setPassword("1234");
 
 		return dataSource;
-	}	
+	}
+	
 	
 	@Bean
-	public PlatformTransactionManager transactionManager() {
+	public DataSourceTransactionManager transactionManager() {
 		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
 		dataSourceTransactionManager.setDataSource(dataSource());
 		return dataSourceTransactionManager;
 	}
 	
-//	<tx:advice id="transactionAdvice">
-//		<tx:attributes>
-//			<tx:method name="get*" read-only="true"/>
-//			<tx:method name="*" />
-//		</tx:attributes> 
-//	</tx:advice>
-//	tx:advice 태그로 인해 Spring IoC 컨테이너에 transactionAdvice 이름을 가지는 TransactionInterceptor 타입의 빈 객체가 생성되어 관리된다
+	// aop
+	//<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 	@Bean
-    public TransactionInterceptor transactionAdvice() {
-        NameMatchTransactionAttributeSource txAttributeSource = new NameMatchTransactionAttributeSource();
-        RuleBasedTransactionAttribute readOnlyTx = new RuleBasedTransactionAttribute();
-        readOnlyTx.setReadOnly(true);
-        readOnlyTx.setTimeout(30);
-        RuleBasedTransactionAttribute readWriteTx = new RuleBasedTransactionAttribute();
-        readWriteTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-        readWriteTx.setIsolationLevel(TransactionDefinition.ISOLATION_SERIALIZABLE);
-        txAttributeSource.addTransactionalMethod("get*", readOnlyTx);
-        txAttributeSource.addTransactionalMethod("*", readWriteTx);
-        return new TransactionInterceptor(transactionManager(), txAttributeSource);
-    }
+	  public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+	    return new DefaultAdvisorAutoProxyCreator();
+	  }
 	
 	@Bean
-    public DefaultPointcutAdvisor transactionAdvisor() {
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("bean(*Service)");
-        return new DefaultPointcutAdvisor(pointcut, transactionAdvice());
-    }
-	 
-	
-//	@Bean
-//	public AspectJExpressionPointcut transactionPointcut() {
-//		AspectJExpressionPointcut aspectJExpressionPointcut = new AspectJExpressionPointcut();
-//		aspectJExpressionPointcut.setExpression("execution(* *..*ServiceImpl.upgrade*(..))");		
-//		return aspectJExpressionPointcut;
-//	}
+	public TransactionAdvice transactionAdvice() {
+		TransactionAdvice transactionAdvice = new TransactionAdvice();
+		transactionAdvice.setTransactionManager(transactionManager());
+		return transactionAdvice;
+	}	
+
+	@Bean
+	public AspectJExpressionPointcut transactionPointcut() {
+		AspectJExpressionPointcut aspectJExpressionPointcut = new AspectJExpressionPointcut();
+		aspectJExpressionPointcut.setExpression("execution(* *..*ServiceImpl.upgrade*(..))");		
+		return aspectJExpressionPointcut;
+	}
+
+	@Bean
+	public DefaultPointcutAdvisor transactionAdvisor() {
+		DefaultPointcutAdvisor defaultPointcutAdvisor = new DefaultPointcutAdvisor();
+		defaultPointcutAdvisor.setAdvice(transactionAdvice());
+		defaultPointcutAdvisor.setPointcut(transactionPointcut());
+		return defaultPointcutAdvisor;
+	}	
 
 	// application components
 	@Bean
@@ -98,15 +79,7 @@ public class TestServiceFactory {
 		userServiceImpl.setUserDao(userDao());
 		userServiceImpl.setMailSender(mailSender());		
 		return userServiceImpl;
-	}
-	
-	@Bean
-	public UserServiceImpl userServiceImpl() {
-		UserServiceImpl userServiceImpl = new UserServiceImpl();
-		userServiceImpl.setUserDao(userDao());
-		userServiceImpl.setMailSender(mailSender());
-		return userServiceImpl;
-	}
+	}	
 	
 	// <bean id="testUserService" class="springbook.user.service.UserServiceTest$TestUserServiceImpl" parent="userService" />
 	@Bean
