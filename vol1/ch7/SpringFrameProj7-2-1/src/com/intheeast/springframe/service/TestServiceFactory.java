@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import com.intheeast.springframe.dao.UserDaoJdbc;
+import com.intheeast.springframe.sqlservice.SimpleSqlService;
 
 @Configuration
 @EnableTransactionManagement
@@ -47,20 +48,23 @@ public class TestServiceFactory {
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
 		userDaoJdbc.setDataSource(dataSource());
-		userDaoJdbc.setSqlMap(sqlMap());
+		userDaoJdbc.setSqlService(sqlService());
 		return userDaoJdbc;
 	}
 	
+		
 	@Bean
-    public Map<String, String> sqlMap() {
-        Map<String, String> sqlMap = new HashMap<>();
+    public SimpleSqlService sqlService() {
+		SimpleSqlService simpleSqlService = new SimpleSqlService();
+		Map<String, String> sqlMap = new HashMap<>();
         sqlMap.put("add", "insert into users(id, name, password, email, level, login, recommend) values(?,?,?,?,?,?,?)");
         sqlMap.put("get", "select * from users where id = ?");
         sqlMap.put("getAll", "select * from users order by id");
         sqlMap.put("deleteAll", "delete from users");
         sqlMap.put("getCount", "select count(*) from users");
         sqlMap.put("update", "update users set name = ?, password = ?, email = ?, level = ?, login = ?, recommend = ? where id = ?");
-        return sqlMap;
+        simpleSqlService.setSqlMap(sqlMap);
+        return simpleSqlService;
     }
 	
 	@Bean
