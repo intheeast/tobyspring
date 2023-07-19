@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import com.intheeast.springframe.dao.UserDaoJdbc;
-import com.intheeast.springframe.sqlservice.DefaultSqlService;
+import com.intheeast.springframe.sqlservice.BaseSqlService;
+import com.intheeast.springframe.sqlservice.HashMapSqlRegistry;
+import com.intheeast.springframe.sqlservice.JaxbXmlSqlReader;
 import com.intheeast.springframe.sqlservice.SimpleSqlService;
 import com.intheeast.springframe.sqlservice.XmlSqlService;
 
@@ -45,11 +47,41 @@ public class TestServiceFactory {
         return new DataSourceTransactionManager(dataSource());
     }
 	
+	/*
+	 <!-- sql service -->
+	<bean id="sqlService" class="springbook.user.sqlservice.BaseSqlService">
+		<property name="sqlReader" ref="sqlReader" />
+		<property name="sqlRegistry" ref="sqlRegistry" />
+	</bean>
+	
+	<bean id="sqlReader" class="springbook.user.sqlservice.JaxbXmlSqlReader">
+		<property name="sqlmapFile" value="sqlmap.xml" />
+	</bean>
+	
+	<bean id="sqlRegistry" class="springbook.user.sqlservice.HashMapSqlRegistry">
+	</bean>
+	 */
+	
 	@Bean
-    public DefaultSqlService sqlService() {
-		DefaultSqlService defaultSqlService = new DefaultSqlService();		
-        return defaultSqlService;
+    public BaseSqlService sqlService() {
+		BaseSqlService baseSqlService = new BaseSqlService();
+		baseSqlService.setSqlReader(sqlReader());
+		baseSqlService.setSqlRegistry(sqlRegistry());
+        return baseSqlService;
     }
+	
+	@Bean
+	public JaxbXmlSqlReader sqlReader() {
+		JaxbXmlSqlReader jaxbXmlSqlReader = new JaxbXmlSqlReader();
+		jaxbXmlSqlReader.setSqlmapFile("sqlmap.xml");
+		return jaxbXmlSqlReader;
+	}
+	
+	@Bean
+	public HashMapSqlRegistry sqlRegistry() {
+		HashMapSqlRegistry hashMapSqlRegistry = new HashMapSqlRegistry();
+		return hashMapSqlRegistry;
+	}
 
 	// application components
 	@Bean
