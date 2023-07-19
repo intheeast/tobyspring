@@ -62,7 +62,8 @@ public class UserDaoTest {
 			User userget = Optuserget2.get();
 			assertEquals(user2.getName(), userget.getName());
 			assertEquals(user2.getPassword(), userget.getPassword());
-		}			
+		}
+				
 	}
 	
 	@Test
@@ -71,7 +72,7 @@ public class UserDaoTest {
 		assertEquals(dao.getCount(), 0);		
 		
 		Optional<User> Optuserget = dao.get("unknown_id");
-		assertTrue(Optuserget.isEmpty());		
+		assertTrue(Optuserget.isEmpty());	
 	}
 	
 	@Test
@@ -150,7 +151,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void update() {
-		dao.deleteAll();
+dao.deleteAll();
 		
 		dao.add(user1);
 		dao.add(user2);

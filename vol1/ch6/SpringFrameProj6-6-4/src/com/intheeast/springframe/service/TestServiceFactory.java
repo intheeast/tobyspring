@@ -25,8 +25,6 @@ import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 @EnableAspectJAutoProxy
-//@EnableTransactionManagement
-//@ComponentScan(basePackages = "intheeast.springframe")
 public class TestServiceFactory {
 	@Bean
 	public DataSource dataSource() {

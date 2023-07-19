@@ -5,18 +5,22 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "intheeast.springframe")
-public class TestServiceFactory {
+@ComponentScan(basePackages = "springframe")
+public class TestServiceFactory {	
+	
 	@Bean
 	public DataSource dataSource() {
 		
@@ -29,15 +33,11 @@ public class TestServiceFactory {
 
 		return dataSource;
 	}
-
 	
 	@Bean
-	public PlatformTransactionManager transactionManager() {
-		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-		dataSourceTransactionManager.setDataSource(dataSource());
-		return dataSourceTransactionManager;
-	}
-	
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
 
 	// application components
 	@Bean
@@ -67,7 +67,5 @@ public class TestServiceFactory {
 	public DummyMailSender mailSender() {
 		DummyMailSender dummyMailSender = new DummyMailSender();
 		return dummyMailSender;
-	}
-	
-	
+	}	
 }
