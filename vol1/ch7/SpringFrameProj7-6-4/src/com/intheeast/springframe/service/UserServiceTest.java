@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.intheeast.AppContext;
-import com.intheeast.TestAppContext;
 import com.intheeast.TestApplicationContext;
 import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
@@ -42,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes={AppContext.class, TestAppContext.class})
+@ContextConfiguration(classes=AppContext.class)
 public class UserServiceTest {
 	@Autowired UserService userService;	
 	@Autowired UserService testUserService;
