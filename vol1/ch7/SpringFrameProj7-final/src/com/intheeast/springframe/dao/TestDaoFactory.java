@@ -24,7 +24,7 @@ import com.intheeast.springframe.sqlservice.updatable.ConcurrentHashMapSqlRegist
 import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
-@ComponentScan( basePackages = "com.intheeast.springframe")
+@ComponentScan(basePackages = "com.intheeast.springframe.dao")
 public class TestDaoFactory {
 	
 	@Bean
@@ -40,7 +40,7 @@ public class TestDaoFactory {
 		return dataSource;
 	}	
 
-	@Autowired UserDao userDao;
+	@Autowired UserDaoJdbc userDao;
 //	@Bean
 //	public UserDaoJdbc userDao() {
 //		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();

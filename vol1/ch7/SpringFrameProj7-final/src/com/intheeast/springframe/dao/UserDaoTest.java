@@ -27,7 +27,7 @@ import com.intheeast.springframe.domain.User;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestDaoFactory.class})
 public class UserDaoTest {	 
-	@Autowired UserDao dao; 
+	@Autowired UserDao userDao; 
 	@Autowired DataSource dataSource;
 	
 	private User user1;
@@ -43,21 +43,21 @@ public class UserDaoTest {
 	
 	@Test
 	public void addAndGet() throws SQLException, ClassNotFoundException {				
-		dao.deleteAll();
-		assertEquals(dao.getCount(), 0);
+		userDao.deleteAll();
+		assertEquals(userDao.getCount(), 0);
 		
-		dao.add(user1);
-		dao.add(user2);
-		assertEquals(dao.getCount(), 2);
+		userDao.add(user1);
+		userDao.add(user2);
+		assertEquals(userDao.getCount(), 2);
 		
-		Optional<User> Optuserget1 = dao.get(user1.getId());
+		Optional<User> Optuserget1 = userDao.get(user1.getId());
 		if(!Optuserget1.isEmpty()) {
 			User userget = Optuserget1.get();
 			assertEquals(user1.getName(), userget.getName());
 			assertEquals(user1.getPassword(), userget.getPassword());
 		}
 		
-		Optional<User> Optuserget2 = dao.get(user2.getId());
+		Optional<User> Optuserget2 = userDao.get(user2.getId());
 		if(!Optuserget2.isEmpty()) {
 			User userget = Optuserget2.get();
 			assertEquals(user2.getName(), userget.getName());
@@ -68,47 +68,47 @@ public class UserDaoTest {
 	
 	@Test
 	public void getUserFailure() throws SQLException, ClassNotFoundException {		
-		dao.deleteAll();
-		assertEquals(dao.getCount(), 0);		
+		userDao.deleteAll();
+		assertEquals(userDao.getCount(), 0);		
 		
-		Optional<User> Optuserget = dao.get("unknown_id");
+		Optional<User> Optuserget = userDao.get("unknown_id");
 		assertTrue(Optuserget.isEmpty());	
 	}
 	
 	@Test
 	public void count() throws SQLException, ClassNotFoundException {		
-		dao.deleteAll();
-		assertEquals(dao.getCount(), 0);
+		userDao.deleteAll();
+		assertEquals(userDao.getCount(), 0);
 
-		dao.add(user1);
-		assertEquals(dao.getCount(), 1);
+		userDao.add(user1);
+		assertEquals(userDao.getCount(), 1);
 		
-		dao.add(user2);
-		assertEquals(dao.getCount(), 2);
+		userDao.add(user2);
+		assertEquals(userDao.getCount(), 2);
 		
-		dao.add(user3);
-		assertEquals(dao.getCount(), 3);		
+		userDao.add(user3);
+		assertEquals(userDao.getCount(), 3);		
 	}	
 	
 	@Test
 	public void getAll() throws SQLException  {
-		dao.deleteAll();
-		List<User> users0 = dao.getAll();
+		userDao.deleteAll();
+		List<User> users0 = userDao.getAll();
 		assertEquals(users0.size(), 0);
 		
-		dao.add(user1); 
-		List<User> users1 = dao.getAll();
+		userDao.add(user1); 
+		List<User> users1 = userDao.getAll();
 		assertEquals(users1.size(), 1);
 		checkSameUser(user1, users1.get(0));
 		
-		dao.add(user2); 
-		List<User> users2 = dao.getAll();
+		userDao.add(user2); 
+		List<User> users2 = userDao.getAll();
 		assertEquals(users2.size(), 2);
 		checkSameUser(user1, users2.get(0));  
 		checkSameUser(user2, users2.get(1));
 		
-		dao.add(user3); 
-		List<User> users3 = dao.getAll();
+		userDao.add(user3); 
+		List<User> users3 = userDao.getAll();
 		assertEquals(users3.size(), 3);	
 		checkSameUser(user3, users3.get(0));  
 		checkSameUser(user1, users3.get(1));  
@@ -127,19 +127,19 @@ public class UserDaoTest {
 	
 	@Test
 	public void duplciateKey() throws SQLException {
-		dao.deleteAll();
+		userDao.deleteAll();
 		
-		dao.add(user1);
-		assertThrows(DuplicateKeyException.class, () -> dao.add(user1));
+		userDao.add(user1);
+		assertThrows(DuplicateKeyException.class, () -> userDao.add(user1));
 	}
 	
 	@Test
 	public void sqlExceptionTranslate() {
-		dao.deleteAll();
+		userDao.deleteAll();
 		
 		try {
-			dao.add(user1);
-			dao.add(user1);
+			userDao.add(user1);
+			userDao.add(user1);
 		}
 		catch(DuplicateKeyException ex) {
 			SQLException sqlEx = (SQLException)ex.getCause();
@@ -151,10 +151,10 @@ public class UserDaoTest {
 	
 	@Test
 	public void update() {
-		dao.deleteAll();
+		userDao.deleteAll();
 		
-		dao.add(user1);
-		dao.add(user2);
+		userDao.add(user1);
+		userDao.add(user2);
 		
 		user1.setName("���α�");
 		user1.setPassword("springo6");
@@ -162,16 +162,16 @@ public class UserDaoTest {
 		user1.setLevel(Level.GOLD);
 		user1.setLogin(1000);
 		user1.setRecommend(999);
-		dao.update(user1);
+		userDao.update(user1);
 		
-		Optional<User> Optuser1update = dao.get(user1.getId());
+		Optional<User> Optuser1update = userDao.get(user1.getId());
 		
 		if(!Optuser1update.isEmpty()) {
 			User user1update = Optuser1update.get();
 			checkSameUser(user1, user1update);
 		}	
 		
-		Optional<User> Optuser2update = dao.get(user2.getId());
+		Optional<User> Optuser2update = userDao.get(user2.getId());
 		
 		if(!Optuser2update.isEmpty()) {
 			User user2update = Optuser2update.get();

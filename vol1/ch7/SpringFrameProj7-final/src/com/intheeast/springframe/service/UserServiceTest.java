@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.intheeast.springframe.dao.UserDao;
+import com.intheeast.springframe.dao.UserDaoJdbc;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 

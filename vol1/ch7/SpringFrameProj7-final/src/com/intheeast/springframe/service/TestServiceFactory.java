@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "springframe")
+@ComponentScan(basePackages = "com.intheeast.springframe.dao")
 public class TestServiceFactory {	
 	
 	@Bean
@@ -94,18 +95,19 @@ public class TestServiceFactory {
 	}
 
 	// application components
-	@Bean
-	public UserDaoJdbc userDao() {
-		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
-		//userDaoJdbc.setDataSource(dataSource());
-		//userDaoJdbc.setSqlService(sqlService());
-		return userDaoJdbc;
-	}	
+	@Autowired UserDaoJdbc userDao;
+//	@Bean
+//	public UserDaoJdbc userDao() {
+//		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
+//		//userDaoJdbc.setDataSource(dataSource());
+//		//userDaoJdbc.setSqlService(sqlService());
+//		return userDaoJdbc;
+//	}	
 	
 	@Bean
 	public UserServiceImpl userService() {
 		UserServiceImpl userServiceImpl = new UserServiceImpl();
-		userServiceImpl.setUserDao(userDao());
+		userServiceImpl.setUserDao(this.userDao);
 		userServiceImpl.setMailSender(mailSender());		
 		return userServiceImpl;
 	}	
@@ -113,7 +115,7 @@ public class TestServiceFactory {
 	@Bean
 	public UserServiceImpl testUserService() {
 	    UserServiceImpl testUserServiceImpl = new UserServiceTest.TestUserServiceImpl();
-	    testUserServiceImpl.setUserDao(userDao());
+	    testUserServiceImpl.setUserDao(this.userDao);
 	    testUserServiceImpl.setMailSender(mailSender());
 	    return testUserServiceImpl;
 	}
