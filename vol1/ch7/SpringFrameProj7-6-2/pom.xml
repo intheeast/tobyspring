@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>SpringFrameProj7-6-2</groupId>
+  <artifactId>SpringFrameProj7-6-2</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.26</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-core</artifactId>
+	    <version>5.3.20</version>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.3.20</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>5.3.20</version>        
+        <!-- <scope>test</scope>  -->
+    </dependency>
+    <dependency>
+    	<groupId>org.aspectj</groupId>
+    	<artifactId>aspectjweaver</artifactId>
+    	<version>1.9.8</version> 
+  	</dependency>
+  	<!-- For @EnableTransactionManagement!!! -->
+  	<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>5.3.20</version>
+	</dependency>	
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-dao</artifactId>
+        <version>2.0.8</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>5.3.20</version>
+	</dependency>
+	<dependency>
+	 	<groupId>org.springframework</groupId>
+	 	<artifactId>spring-context-support</artifactId>
+	 	<version>5.3.20</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-oxm</artifactId>
+    	<version>5.3.20</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+	<dependency>
+	    <groupId>com.h2database</groupId>
+	    <artifactId>h2</artifactId>
+	    <version>2.1.214</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.xml.bind</groupId>
+	    <artifactId>jaxb-api</artifactId>
+	    <version>2.3.1</version>
+	</dependency>
+
+	<dependency>
+    	<groupId>org.glassfish.jaxb</groupId>
+    	<artifactId>jaxb-runtime</artifactId>
+    	<version>2.3.2</version>
+	</dependency>
+	
+	<!-- For @PostConstruct annotation!!!-->
+	<dependency>
+	    <groupId>jakarta.annotation</groupId>
+	    <artifactId>jakarta.annotation-api</artifactId>
+	    <version>1.3.5</version>
+	</dependency>
+	
+	
+
+	<dependency>
+ 		<groupId>com.sun.mail</groupId>
+ 		<artifactId>javax.mail</artifactId>
+ 		<version>1.6.2</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <version>5.9.2</version>
+	    <!-- <scope>test</scope> -->
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+	<dependency>
+	    <groupId>org.mockito</groupId>
+	    <artifactId>mockito-core</artifactId>
+	    <version>5.2.0</version>
+	    <!-- <scope>test</scope> -->
+	</dependency>
+	<!--  
+	<dependency>
+        <groupId>org.codehaus.castor</groupId>
+        <artifactId>castor-xml</artifactId>
+        <version>1.4.1</version>
+    </dependency>
+	-->
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
