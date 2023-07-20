@@ -9,36 +9,27 @@ import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 import com.intheeast.springframe.sqlservice.SqlService;
 
-//@Component
-@Repository
 public class UserDaoJdbc implements UserDao {	
-	
-	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource); // setSqlService처럼 삭제가 불가능한 이유
-														  // :JdbcTemplate 객체를 생성하기 때문
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
 	private JdbcTemplate jdbcTemplate;
 	
-	@Autowired
 	private SqlService sqlService;
 
-//	public void setSqlService(SqlService sqlService) {
-//		this.sqlService = sqlService;
-//	}
+	public void setSqlService(SqlService sqlService) {
+		this.sqlService = sqlService;
+	}
 	
 	private RowMapper<User> userMapper = 
 			new RowMapper<User>() {

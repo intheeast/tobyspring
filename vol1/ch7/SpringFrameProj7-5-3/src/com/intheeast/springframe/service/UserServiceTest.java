@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.intheeast.springframe.dao.UserDao;
-import com.intheeast.springframe.dao.UserDaoJdbc;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
@@ -42,10 +41,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class}/*locations="/test-applicationContext.xml"/*/)
 public class UserServiceTest {
-	@Autowired UserServiceImpl userService;	
+	@Autowired UserService userService;	
 	@Autowired UserService testUserService;
 	@Autowired UserDao userDao;
-	@Autowired DummyMailSender mailSender;
+	@Autowired MailSender mailSender;
 	@Autowired PlatformTransactionManager transactionManager;
 	@Autowired ApplicationContext context;
 	

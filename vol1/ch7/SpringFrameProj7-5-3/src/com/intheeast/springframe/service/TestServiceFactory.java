@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +37,7 @@ import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.intheeast.springframe.dao")
+@ComponentScan(basePackages = "springframe")
 public class TestServiceFactory {	
 	
 	@Bean
@@ -95,37 +94,33 @@ public class TestServiceFactory {
 	}
 
 	// application components
-	@Autowired UserDaoJdbc userDao;
-	@Autowired DummyMailSender mailSender;
-//	@Bean
-//	public UserDaoJdbc userDao() {
-//		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
-//		//userDaoJdbc.setDataSource(dataSource());
-//		//userDaoJdbc.setSqlService(sqlService());
-//		return userDaoJdbc;
-//	}	
+	@Bean
+	public UserDaoJdbc userDao() {
+		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
+		userDaoJdbc.setDataSource(dataSource());
+		userDaoJdbc.setSqlService(sqlService());
+		return userDaoJdbc;
+	}	
 	
-	//@Autowired UserServiceImpl userService;
 	@Bean
 	public UserServiceImpl userService() {
 		UserServiceImpl userServiceImpl = new UserServiceImpl();
-		userServiceImpl.setUserDao(this.userDao);
-		userServiceImpl.setMailSender(this.mailSender);		
+		userServiceImpl.setUserDao(userDao());
+		userServiceImpl.setMailSender(mailSender());		
 		return userServiceImpl;
 	}	
 	
 	@Bean
 	public UserServiceImpl testUserService() {
 	    UserServiceImpl testUserServiceImpl = new UserServiceTest.TestUserServiceImpl();
-	    testUserServiceImpl.setUserDao(this.userDao);
-	    testUserServiceImpl.setMailSender(this.mailSender);
+	    testUserServiceImpl.setUserDao(userDao());
+	    testUserServiceImpl.setMailSender(mailSender());
 	    return testUserServiceImpl;
 	}
 	
-	
-//	@Bean
-//	public DummyMailSender mailSender() {
-//		DummyMailSender dummyMailSender = new DummyMailSender();
-//		return dummyMailSender;
-//	}	
+	@Bean
+	public DummyMailSender mailSender() {
+		DummyMailSender dummyMailSender = new DummyMailSender();
+		return dummyMailSender;
+	}	
 }
