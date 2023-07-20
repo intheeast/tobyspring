@@ -67,7 +67,7 @@ public class TestDaoFactory {
 
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("embedded-database")
+                .setName("embeddedDatabase")
                 .setScriptEncoding("UTF-8")
                 .addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
                 .build();

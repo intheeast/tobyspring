@@ -97,8 +97,8 @@ public class TestServiceFactory {
 	@Bean
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
-		userDaoJdbc.setDataSource(dataSource());
-		userDaoJdbc.setSqlService(sqlService());
+		//userDaoJdbc.setDataSource(dataSource());
+		//userDaoJdbc.setSqlService(sqlService());
 		return userDaoJdbc;
 	}	
 	
