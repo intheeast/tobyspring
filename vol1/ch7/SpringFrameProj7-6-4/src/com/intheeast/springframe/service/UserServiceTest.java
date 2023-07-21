@@ -41,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
 @ContextConfiguration(classes=AppContext.class)
 public class UserServiceTest {
 	@Autowired UserService userService;	
