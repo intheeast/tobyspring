@@ -47,7 +47,7 @@ private final BaseSqlService baseSqlService = new BaseSqlService();
 	
 	private class OxmSqlReader implements SqlReader {
 		private Unmarshaller unmarshaller;
-		private Resource sqlmap = new ClassPathResource("sqlmap.xml", UserDao.class);
+		private Resource sqlmap = new ClassPathResource("/sqlmap.xml");
 
 		public void setUnmarshaller(Unmarshaller unmarshaller) {
 			this.unmarshaller = unmarshaller;

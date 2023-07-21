@@ -30,7 +30,7 @@ import com.mysql.cj.jdbc.Driver;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.intheeast.springframe")
-@Import(SqlServiceContext.class)
+@EnableSqlService//@Import(SqlServiceContext.class)
 @PropertySource("classpath:/com/database.properties")
 public class AppContext implements SqlMapConfig{
 		
