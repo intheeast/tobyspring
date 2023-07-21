@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement //<tx:annotation-driven />
 @ComponentScan(basePackages = "springframe")
 public class TestServiceFactory {	
 	

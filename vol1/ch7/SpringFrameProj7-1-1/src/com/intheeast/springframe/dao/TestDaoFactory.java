@@ -1,5 +1,8 @@
 package com.intheeast.springframe.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -26,8 +29,21 @@ public class TestDaoFactory {
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
 		userDaoJdbc.setDataSource(dataSource());
+		userDaoJdbc.setSqlMap(sqlMap());
 		return userDaoJdbc;
 	}
+	
+	@Bean
+    public Map<String, String> sqlMap() {
+        Map<String, String> sqlMap = new HashMap<>();
+        sqlMap.put("add", "insert into users(id, name, password, email, level, login, recommend) values(?,?,?,?,?,?,?)");
+        sqlMap.put("get", "select * from users where id = ?");
+        sqlMap.put("getAll", "select * from users order by id");
+        sqlMap.put("deleteAll", "delete from users");
+        sqlMap.put("getCount", "select count(*) from users");
+        sqlMap.put("update", "update users set name = ?, password = ?, email = ?, level = ?, login = ?, recommend = ? where id = ?");
+        return sqlMap;
+    }
 }
 
 
