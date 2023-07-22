@@ -31,9 +31,7 @@ import javax.xml.bind.annotation.XmlAccessType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "sql"
-})
+@XmlType(name = "sqlmapType", propOrder = { "sql" })
 @XmlRootElement(name = "sqlmap")
 public class Sqlmap {
 	

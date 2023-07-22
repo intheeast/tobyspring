@@ -47,7 +47,7 @@ private final BaseSqlService baseSqlService = new BaseSqlService();
 	
 	private class OxmSqlReader implements SqlReader {
 		private Unmarshaller unmarshaller;
-		private Resource sqlmap; //= new ClassPathResource("sqlmap.xml", UserDao.class);
+		private Resource sqlmap = new ClassPathResource("sqlmap.xml", UserDao.class);
 
 		public void setUnmarshaller(Unmarshaller unmarshaller) {
 			this.unmarshaller = unmarshaller;
@@ -65,7 +65,7 @@ private final BaseSqlService baseSqlService = new BaseSqlService();
 					sqlRegistry.registerSql(sql.getKey(), sql.getValue());
 				}
 			} catch (IOException e) {
-				throw new IllegalArgumentException(this.sqlmap.getFilename() + "À» °¡Á®¿Ã ¼ö ¾ø½À´Ï´Ù", e);
+				throw new IllegalArgumentException(this.sqlmap.getFilename() + "을 가져올 수 없습니다.", e);
 			}
 		}
 	}

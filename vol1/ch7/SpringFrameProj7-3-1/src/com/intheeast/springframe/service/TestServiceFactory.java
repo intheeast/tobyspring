@@ -48,11 +48,6 @@ public class TestServiceFactory {
         return new DataSourceTransactionManager(dataSource());
     }
 	
-	/*
-	 <!-- sql service -->
-	<bean id="sqlService" class="springbook.user.sqlservice.DefaultSqlService">
-	</bean>
-	 */	
 	@Bean
     public DefaultSqlService sqlService() {
 		DefaultSqlService defaultSqlService = new DefaultSqlService();

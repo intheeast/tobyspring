@@ -13,7 +13,7 @@ import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.sqlservice.jaxb.SqlType;
 import com.intheeast.springframe.sqlservice.jaxb.Sqlmap;
 
-public class XmlSqlService implements SqlService {
+public class XmlSqlService implements SqlService, SqlRegistry, SqlReader {
 
 	// --------- SqlProvider ------------
 	private SqlReader sqlReader;

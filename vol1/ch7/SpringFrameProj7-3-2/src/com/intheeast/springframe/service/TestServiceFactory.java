@@ -50,20 +50,13 @@ public class TestServiceFactory {
         return new DataSourceTransactionManager(dataSource());
     }
 	
-//	<!-- sql service -->
-//	<bean id="sqlService" class="springbook.user.sqlservice.OxmSqlService">
-//		<property name="unmarshaller" ref="unmarshaller" /> 
-//	</bean>
 	@Bean
 	public OxmSqlService sqlService() {
 		OxmSqlService oxmSqlService = new OxmSqlService();
 		oxmSqlService.setUnmarshaller(unmarshaller());
 		return oxmSqlService;
 	}
-//		
-//	<bean id="unmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-//		<property name="contextPath" value="springbook.user.sqlservice.jaxb" />
-//	</bean>
+
 	@Bean
 	public Jaxb2Marshaller unmarshaller() {
 		Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();

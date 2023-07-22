@@ -22,6 +22,8 @@ import com.intheeast.springframe.sqlservice.BaseSqlService;
 import com.intheeast.springframe.sqlservice.HashMapSqlRegistry;
 import com.intheeast.springframe.sqlservice.JaxbXmlSqlReader;
 import com.intheeast.springframe.sqlservice.SimpleSqlService;
+import com.intheeast.springframe.sqlservice.SqlReader;
+import com.intheeast.springframe.sqlservice.SqlRegistry;
 import com.intheeast.springframe.sqlservice.XmlSqlService;
 
 @Configuration
@@ -47,20 +49,15 @@ public class TestServiceFactory {
         return new DataSourceTransactionManager(dataSource());
     }
 	
-	/*
-	 <!-- sql service -->
-	<bean id="sqlService" class="springbook.user.sqlservice.BaseSqlService">
-		<property name="sqlReader" ref="sqlReader" />
-		<property name="sqlRegistry" ref="sqlRegistry" />
-	</bean>
-	
-	<bean id="sqlReader" class="springbook.user.sqlservice.JaxbXmlSqlReader">
-		<property name="sqlmapFile" value="sqlmap.xml" />
-	</bean>
-	
-	<bean id="sqlRegistry" class="springbook.user.sqlservice.HashMapSqlRegistry">
-	</bean>
-	 */
+	// 자기 참조 빈 설정 : XmlSqlService의 SqlRegistry, SqlReader 인터페이스 구현 정의의 주석처리 제거
+//	@Bean 
+//	public XmlSqlService sqlService() {
+//		XmlSqlService xmlSqlService = new XmlSqlService();
+//		xmlSqlService.setSqlReader(xmlSqlService);
+//		xmlSqlService.setSqlRegistry(xmlSqlService);
+//		xmlSqlService.setSqlmapFile("sqlmap.xml");
+//      return xmlSqlService;
+//	}
 	
 	@Bean
     public BaseSqlService sqlService() {

@@ -24,9 +24,7 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sqlType", propOrder = {
-    "value"
-})
+@XmlType(name = "sqlType", propOrder = { "value" })
 public class SqlType {
 	@XmlValue
     protected String value;

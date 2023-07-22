@@ -23,17 +23,7 @@ public class TestDaoFactory {
 
 		return dataSource;
 	}
-	/*
-	 <bean id="userDao" class="springbook.user.dao.UserDaoJdbc">
-		<property name="dataSource" ref="dataSource" />
-		<property name="sqlService" ref="sqlService" />
-	</bean>
 	
-	<bean id="sqlService" class="springbook.user.sqlservice.XmlSqlService">
-		<property name="sqlmapFile" value="sqlmap.xml" />
-	</bean>
-	 */
-
 	@Bean
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
