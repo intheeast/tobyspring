@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.mail.MailSender;
 
 import com.intheeast.AppContext;
+import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
@@ -43,11 +44,11 @@ public class UserServiceProduction {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.getEnvironment().setActiveProfiles("production");
 		context.register(AppContext.class);
-		context.refresh();
+		context.refresh();		
 		
-//		UserService userService = context.getBean("userService", UserService.class);	
-//		UserDao userDao = context.getBean("userDao", UserDao.class);
-		MailSender mailSender = context.getBean(MailSender.class);	
+		MailSender mailSender = context.getBean(MailSender.class);
+		UserService userService = context.getBean("userService", UserService.class);	
+		UserDao userDao = context.getBean("userDao", UserDao.class);
 		
 	}
 
