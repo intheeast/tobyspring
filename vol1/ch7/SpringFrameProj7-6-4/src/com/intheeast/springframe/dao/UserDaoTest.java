@@ -18,16 +18,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.intheeast.AppContext;
-import com.intheeast.TestAppContext;
-import com.intheeast.TestApplicationContext;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
 @ContextConfiguration(classes=AppContext.class)
 public class UserDaoTest {	 
 	@Autowired UserDao dao; 

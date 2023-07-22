@@ -16,12 +16,12 @@ import org.springframework.oxm.XmlMappingException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.intheeast.springframe.dao.TestDaoFactory;
+import com.intheeast.AppContext;
 import com.intheeast.springframe.sqlservice.jaxb.SqlType;
 import com.intheeast.springframe.sqlservice.jaxb.Sqlmap;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {TestDaoFactory.class})
+@ContextConfiguration(classes = {AppContext.class})
 public class OxmTest {
 	@Autowired
 	Unmarshaller unmarshaller;

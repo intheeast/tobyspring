@@ -22,6 +22,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -29,7 +30,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.intheeast.AppContext;
-import com.intheeast.TestApplicationContext;
 import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
@@ -238,7 +238,7 @@ public class UserServiceTest {
 		
 		protected void upgradeLevel(User user) {
 			if (user.getId().equals(this.id)) throw new TestUserServiceException();  
-			super.upgradeLevel(user);  
+			super.upgradeLevel(user); 
 		}
 		
 		public List<User> getAll() {
