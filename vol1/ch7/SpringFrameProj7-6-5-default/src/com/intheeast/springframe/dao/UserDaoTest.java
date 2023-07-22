@@ -16,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ActiveProfiles;
@@ -46,7 +45,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void addAndGet() /*throws SQLException, ClassNotFoundException*/ {				
+	public void addAndGet() throws SQLException, ClassNotFoundException {				
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 		
@@ -71,18 +70,16 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void getUserFailure() /*throws SQLException, ClassNotFoundException*/ {		
+	public void getUserFailure() throws SQLException, ClassNotFoundException {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);		
 		
 		Optional<User> Optuserget = dao.get("unknown_id");
-		//assertTrue(Optuserget.isEmpty());
-		
-		assertThrows(EmptyResultDataAccessException.class, () -> Optuserget.isEmpty());
+		assertTrue(Optuserget.isEmpty());	
 	}
 	
 	@Test
-	public void count() /*throws SQLException, ClassNotFoundException*/ {		
+	public void count() throws SQLException, ClassNotFoundException {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 
@@ -97,7 +94,7 @@ public class UserDaoTest {
 	}	
 	
 	@Test
-	public void getAll() /*throws SQLException*/  {
+	public void getAll() throws SQLException  {
 		dao.deleteAll();
 		List<User> users0 = dao.getAll();
 		assertEquals(users0.size(), 0);
@@ -132,7 +129,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void duplciateKey() /*throws SQLException*/ {
+	public void duplciateKey() throws SQLException {
 		dao.deleteAll();
 		
 		dao.add(user1);

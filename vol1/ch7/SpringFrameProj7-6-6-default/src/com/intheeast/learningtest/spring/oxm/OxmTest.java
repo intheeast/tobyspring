@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.XmlMappingException;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,8 +21,7 @@ import com.intheeast.springframe.sqlservice.jaxb.SqlType;
 import com.intheeast.springframe.sqlservice.jaxb.Sqlmap;
 
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
-@ContextConfiguration(classes=AppContext.class)
+@ContextConfiguration(classes = {AppContext.class})
 public class OxmTest {
 	@Autowired
 	Unmarshaller unmarshaller;

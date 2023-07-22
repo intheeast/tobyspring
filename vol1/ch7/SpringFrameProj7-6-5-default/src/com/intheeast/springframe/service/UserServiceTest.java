@@ -95,7 +95,7 @@ public class UserServiceTest {
 	
 	static class MockUserDao implements UserDao { 
 		private List<User> users;  
-		private List<User> updated = new ArrayList<User>(); 
+		private List<User> updated = new ArrayList(); 
 		
 		private MockUserDao(List<User> users) {
 			this.users = users;
@@ -238,7 +238,7 @@ public class UserServiceTest {
 		
 		protected void upgradeLevel(User user) {
 			if (user.getId().equals(this.id)) throw new TestUserServiceException();  
-			super.upgradeLevel(user);  
+			super.upgradeLevel(user); 
 		}
 		
 		public List<User> getAll() {
