@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;

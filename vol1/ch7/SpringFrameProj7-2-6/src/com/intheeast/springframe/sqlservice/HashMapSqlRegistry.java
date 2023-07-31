@@ -13,6 +13,8 @@ public class HashMapSqlRegistry implements SqlRegistry {
 		else return sql;
 	}
 
-	public void registerSql(String key, String sql) { sqlMap.put(key, sql);	}
+	public void registerSql(String key, String sql) { 
+		sqlMap.put(key, sql);	
+	}
 
 }
