@@ -20,7 +20,8 @@ import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 import com.intheeast.springframe.sqlservice.SqlService;
 
-@Repository  // java configuration 메타정보에 누락되어 있지만, UserDaoTest 또는 UserServiceTest에 자동 주입된다.
+// userDaoJdbc...nested...
+@Repository/*("userDaoJdbc")*/ // java configuration 메타정보에 누락되어 있지만, UserDaoTest 또는 UserServiceTest에 자동 주입된다.
 public class UserDaoJdbc implements UserDao {	
 	
 	@Autowired

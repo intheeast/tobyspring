@@ -16,11 +16,13 @@ import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,6 +35,7 @@ import com.intheeast.AppContext;
 import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
+import com.intheeast.springframe.service.UserServiceTest.TestUserService;
 
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_LOGCOUNT_FOR_SILVER;
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_RECCOMEND_FOR_GOLD;
@@ -44,9 +47,23 @@ import static org.mockito.Mockito.*;
 @ActiveProfiles("test")
 @ContextConfiguration(classes=AppContext.class)
 public class UserServiceTest {
-	@Autowired UserService userService;	
-	@Autowired UserService testUserService;
-	@Autowired UserDao userDao;
+	
+	//@Service("userService") -> name of bean obj = userService
+	@Autowired
+	UserService userService; 
+	
+	/*
+	 @Bean -> name of bean obj = testUserService
+	public UserService testUserService() {
+		return new TestUserService();
+	}
+	 */
+	@Autowired
+	@Qualifier("juintTestUserService")
+	UserService testUserService;
+	
+	@Autowired 
+	UserDao userDao;
 	@Autowired MailSender mailSender;
 	@Autowired PlatformTransactionManager transactionManager;
 	@Autowired ApplicationContext context;

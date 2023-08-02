@@ -13,7 +13,7 @@ import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
-@Service("userService")
+@Service("userService") //userServiceImpl
 public class UserServiceImpl implements UserService {
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
 	public static final int MIN_RECCOMEND_FOR_GOLD = 30;

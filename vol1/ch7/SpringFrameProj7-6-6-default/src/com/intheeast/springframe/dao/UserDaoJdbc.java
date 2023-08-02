@@ -10,10 +10,15 @@ import java.util.stream.Stream;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.stereotype.Repository;
 
 import com.intheeast.springframe.domain.Level;
@@ -22,8 +27,30 @@ import com.intheeast.springframe.sqlservice.SqlService;
 
 @Repository  // java configuration 메타정보에 누락되어 있지만, UserDaoTest 또는 UserServiceTest에 자동 주입된다.
 public class UserDaoJdbc implements UserDao {	
+	/*
+	 @Bean
+	public DataSource dataSource() {
+		SimpleDriverDataSource ds = new SimpleDriverDataSource();
+		
+		ds.setDriverClass(this.driverClass);
+		ds.setUrl(this.url);
+		ds.setUsername(this.username);
+		ds.setPassword(this.password);
+		
+		return ds;
+	}
 	
+	@Bean 
+	public DataSource embeddedDatabase() {
+		return new EmbeddedDatabaseBuilder()
+			.setName("embeddedDatabase")
+			.setType(EmbeddedDatabaseType.H2)
+			.addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+			.build();
+	}
+	 */
 	@Autowired
+	@Qualifier("mySqlDB") //javax.inject.Qualifier
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}

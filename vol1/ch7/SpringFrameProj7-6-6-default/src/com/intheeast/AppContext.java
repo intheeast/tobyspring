@@ -3,6 +3,7 @@ package com.intheeast;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,6 +50,7 @@ public class AppContext implements SqlMapConfig {
 	}
 	
 	@Bean
+	@Qualifier("mySqlDB")
 	public DataSource dataSource() {
 		SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		
@@ -82,6 +84,7 @@ public class AppContext implements SqlMapConfig {
 	@Profile("test")
 	public static class TestAppContext {
 		@Bean
+		@Qualifier("juintTestUserService")
 		public UserService testUserService() {
 			return new TestUserService();
 		}

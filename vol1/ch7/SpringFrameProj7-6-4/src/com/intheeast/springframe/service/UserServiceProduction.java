@@ -51,6 +51,8 @@ public class UserServiceProduction {
 		UserService userService = context.getBean("userService", UserService.class);	
 		UserDao userDao = context.getBean("userDao", UserDao.class);
 		
+		System.out.println("hello world");
+		
 	}
 
 }

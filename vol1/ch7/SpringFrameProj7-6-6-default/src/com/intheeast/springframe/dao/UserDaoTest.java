@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
@@ -21,6 +22,7 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import com.intheeast.AppContext;
 import com.intheeast.springframe.domain.Level;
@@ -29,9 +31,10 @@ import com.intheeast.springframe.domain.User;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes=AppContext.class)
-public class UserDaoTest {	 
+public class UserDaoTest {		
 	@Autowired UserDao dao; 
-	@Autowired DataSource dataSource;
+	@Autowired 
+	@Qualifier("mySqlDB") DataSource dataSource;
 	
 	private User user1;
 	private User user2;

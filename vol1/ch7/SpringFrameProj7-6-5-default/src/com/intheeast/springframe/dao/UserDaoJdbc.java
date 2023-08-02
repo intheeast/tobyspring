@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.ContextLoaderListener;
 
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
@@ -22,6 +24,8 @@ import com.intheeast.springframe.sqlservice.SqlService;
 
 @Repository  // java configuration 메타정보에 누락되어 있지만, UserDaoTest 또는 UserServiceTest에 자동 주입된다.
 public class UserDaoJdbc implements UserDao {	
+	ServletContextListener scl;
+	ContextLoaderListener cll;
 	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -33,9 +37,9 @@ public class UserDaoJdbc implements UserDao {
 	@Autowired
 	private SqlService sqlService;
 
-	public void setSqlService(SqlService sqlService) {
-		this.sqlService = sqlService;
-	}
+//	public void setSqlService(SqlService sqlService) {
+//		this.sqlService = sqlService;
+//	}
 	
 	private RowMapper<User> userMapper = 
 			new RowMapper<User>() {

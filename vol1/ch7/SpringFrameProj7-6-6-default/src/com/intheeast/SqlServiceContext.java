@@ -17,7 +17,8 @@ import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
 public class SqlServiceContext {
-	@Autowired SqlMapConfig sqlMapConfig;
+	@Autowired SqlMapConfig sqlMapConfig; // AppContext가 SqlMapConfig 인터페이스 구현!!!
+										  // AppContext의 객체도 Bean 객체이므로!!!
 	
 	@Bean
 	public SqlService sqlService() {
