@@ -3,6 +3,7 @@ package com.intheeast;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import com.mysql.cj.jdbc.Driver;
 @Import(SqlServiceContext.class)
 public class AppContext {
 	@Bean
+	@Qualifier("jdbcDataSource")
 	public DataSource dataSource() {
 		SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(Driver.class);
@@ -42,5 +44,5 @@ public class AppContext {
 	 * 애플리케이션 로직 & 테스트용 빈
 	 */
 	
-	//@Autowired UserDao userDao;	
+//	@Autowired UserDao userDao;	
 }

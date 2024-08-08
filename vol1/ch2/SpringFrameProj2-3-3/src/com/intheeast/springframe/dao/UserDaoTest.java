@@ -14,7 +14,8 @@ public class UserDaoTest {
 	
 	@Test
 	public void addAndGet() throws SQLException, ClassNotFoundException {				
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		ApplicationContext context = 
+				new AnnotationConfigApplicationContext(DaoFactory.class);
 		UserDao dao = context.getBean("userDao", UserDao.class);
 		
 		dao.deleteAll();	
@@ -28,6 +29,8 @@ public class UserDaoTest {
 		dao.add(user);
 		assertEquals(dao.getCount(), 1);
 		
+//		System.out.println("Good-bye");
+		
 		User user2 = dao.get(user.getId());		
 		
 		assertEquals(user2.getName(), user.getName());
@@ -36,7 +39,8 @@ public class UserDaoTest {
 	
 	@Test
 	public void count() throws SQLException, ClassNotFoundException {
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		ApplicationContext context = 
+				new AnnotationConfigApplicationContext(DaoFactory.class);
 		UserDao dao = context.getBean("userDao", UserDao.class);
 		
 		User user1 = new User("gyumee", "박성철", "springno1");

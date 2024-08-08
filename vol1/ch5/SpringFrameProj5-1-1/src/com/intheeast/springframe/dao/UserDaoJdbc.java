@@ -1,7 +1,7 @@
 package com.intheeast.springframe.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -59,7 +59,9 @@ public class UserDaoJdbc implements UserDao {
 	    
 	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, this.userMapper, id)) {
 	        return stream.findFirst();
-	    } catch (DataAccessException e) {
+	    } catch (DataAccessException e) { 
+	    	//org.springframework.dao.EmptyResultDataAccessException 는 
+	    	// org.springframework.dao.DataAccessException를 상속함.
 	        return Optional.empty();
 	    }
 	}

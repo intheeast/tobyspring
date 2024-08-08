@@ -101,11 +101,12 @@ public class UserServiceTest {
 		testUserService.setUserDao(this.userDao); 
 		testUserService.setDataSource(this.dataSource);
 		 
-		userDao.deleteAll();			  
+		userDao.deleteAll(); 
 		for(User user : users) userDao.add(user);
 		
 		try {
-			testUserService.upgradeLevels();   
+			testUserService.upgradeLevels();
+			
 			fail("TestUserServiceException expected"); 
 		}
 		catch(TestUserServiceException e) { 
@@ -114,6 +115,7 @@ public class UserServiceTest {
 		}
 		
 		checkLevelUpgraded(users.get(1), false);
+		//checkLevelUpgraded(users.get(1), true);
 	}
 	
 	static class TestUserService extends UserService {

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 
 public class PointcutExpressionTest {
+	
 	@Test
 	public void pointcut() throws Exception {
 		tagetClassPointcutMatches("execution(* *(..))", true, true, true, true, true, true);

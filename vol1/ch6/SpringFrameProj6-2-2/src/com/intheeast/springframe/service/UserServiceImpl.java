@@ -9,7 +9,8 @@ import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
-
+// UserService 인터페이스 도입을 통해 약한 결합을 갖는 유연한 구조
+// 트랜잭션과 관련된 코드는 모두 제거
 public class UserServiceImpl implements UserService {
 
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;

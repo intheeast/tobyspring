@@ -3,8 +3,11 @@ package com.intheeast.springframe.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.intheeast.springframe.domain.User;
 
+//@Repository("userDao")
 public interface UserDao {
 	
 	void add(User user);

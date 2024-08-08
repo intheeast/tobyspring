@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
+//import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.intheeast.springframe.domain.User;
 
+// 전략 패턴의 Client
 public class UserDao {
 	//private DataSource dataSource;
 	
@@ -22,6 +23,7 @@ public class UserDao {
 	
 	public void add(final User user) throws SQLException {
 		this.jdbcContext.workWithStatementStrategy(
+				// strategy Concrete Class
 				new StatementStrategy() {			
 					public PreparedStatement makePreparedStatement(Connection c)
 					throws SQLException {
@@ -66,6 +68,7 @@ public class UserDao {
 	
 	public void deleteAll() throws SQLException {
 		this.jdbcContext.workWithStatementStrategy(
+				// strategy Concrete Class
 			new StatementStrategy() {
 				public PreparedStatement makePreparedStatement(Connection c)
 						throws SQLException {

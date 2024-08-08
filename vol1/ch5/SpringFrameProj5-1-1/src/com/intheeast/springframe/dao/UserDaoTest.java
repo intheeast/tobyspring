@@ -23,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
+import com.intheeast.springframe.domain.UserLevel;
 
 
 
@@ -36,6 +37,7 @@ public class UserDaoTest {
 	private User user1;
 	private User user2;
 	private User user3;
+	//private User user4;
 	
 		
 	@BeforeEach
@@ -44,6 +46,14 @@ public class UserDaoTest {
 		this.user1 = new User("gyumee", "박성철", "springno1", Level.BASIC, 1, 0);
 		this.user2 = new User("leegw700", "이길원", "springno2", Level.SILVER, 55, 10);
 		this.user3 = new User("bumjin", "박범진", "springno3", Level.GOLD, 100, 40);
+		
+		
+//		this.user4 = new User("bumjin", 
+//				"박범진", 
+//				"springno3", 
+//				UserLevel.GOLD, 
+//				100, 
+//				40);
 	}
 	
 	@Test

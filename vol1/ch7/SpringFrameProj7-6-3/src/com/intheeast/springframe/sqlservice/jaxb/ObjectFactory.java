@@ -1,6 +1,6 @@
 package com.intheeast.springframe.sqlservice.jaxb;
 
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.annotation.XmlRegistry;
 
 /**
  * This object contains factory methods for each 

@@ -29,6 +29,7 @@ public class XmlSqlService implements SqlService {
 		try {
 			JAXBContext context = JAXBContext.newInstance(contextPath);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
+			// 문제가 발생됨.
 			InputStream is = UserDao.class.getResourceAsStream(this.sqlmapFile);
 			Sqlmap sqlmap = (Sqlmap)unmarshaller.unmarshal(is);
 

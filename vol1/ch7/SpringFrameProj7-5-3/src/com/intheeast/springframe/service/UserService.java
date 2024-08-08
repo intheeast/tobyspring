@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.intheeast.springframe.domain.User;
 
-@Service
+@Service  // annotation based configuration metadata
 @Transactional
 public interface UserService {
 	void add(User user);

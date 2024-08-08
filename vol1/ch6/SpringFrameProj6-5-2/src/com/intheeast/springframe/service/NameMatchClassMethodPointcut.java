@@ -18,7 +18,9 @@ public class NameMatchClassMethodPointcut extends NameMatchMethodPointcut {
 		}
 
 		public boolean matches(Class<?> clazz) {
-			return PatternMatchUtils.simpleMatch(mappedName, clazz.getSimpleName());
+			String simpleName = clazz.getSimpleName();
+			boolean matched = PatternMatchUtils.simpleMatch(mappedName, clazz.getSimpleName());
+			return matched;
 		}
 	}
 }

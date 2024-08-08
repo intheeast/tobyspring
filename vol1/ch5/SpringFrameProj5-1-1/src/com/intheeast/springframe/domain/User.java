@@ -6,9 +6,12 @@ public class User {
 	String id;
 	String name;
 	String password;
+	
 	Level level;
 	int login;
 	int recommend;
+	
+	//int userlevel;
 	
 	public User() {
 	}
@@ -22,6 +25,18 @@ public class User {
 		this.login = login;
 		this.recommend = recommend;
 	}
+	
+//	public User(String id, String name, String password, int level,
+//			int login, int recommend) {
+//		this.id = id;
+//		this.name = name;
+//		this.password = password;
+//		this.userlevel = level;
+//		this.login = login;
+//		this.recommend = recommend;
+//	}
+	
+
 
 
 	public String getId() {

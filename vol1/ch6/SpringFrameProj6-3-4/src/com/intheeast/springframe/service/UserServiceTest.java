@@ -29,6 +29,8 @@ import com.intheeast.springframe.domain.User;
 import com.intheeast.springframe.service.UserServiceTest.TestUserService;
 import com.intheeast.springframe.service.UserServiceTest.TestUserServiceException;
 
+//import static com.intheeast.springframe.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
+//import static com.intheeast.springframe.service.UserService.MIN_RECCOMEND_FOR_GOLD;
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_LOGCOUNT_FOR_SILVER;
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_RECCOMEND_FOR_GOLD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +40,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
-	@Autowired UserService userService;	
+	@Autowired UserService userService;	// 프록시 주입...
 	@Autowired UserDao userDao;	
 	//@Autowired UserServiceImpl userServiceImpl;
 	@Autowired MailSender mailSender; 
@@ -51,11 +53,11 @@ public class UserServiceTest {
 	public void setUp() {	
 		
 		users = Arrays.asList(
-				new User("bumjin", "�ڹ���", "p1", "user1@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
-				new User("joytouch", "����", "p2", "user2@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
-				new User("erwins", "�Ž���", "p3", "user3@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
-				new User("madnite1", "�̻�ȣ", "p4", "user4@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
-				new User("green", "���α�", "p5", "user5@ksug.org", Level.GOLD, 100, Integer.MAX_VALUE)
+				new User("bumjin", "서이준", "p1", "intheeast0305@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
+				new User("joytouch", "개한국", "p2", "kitec403@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
+				new User("erwins", "류경자", "p3", "intheeast0725@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
+				new User("madnite1", "김지철", "p4", "intheeast1009@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
+				new User("green", "몰라요", "p5", "intheeast@gmail.com", Level.GOLD, 100, Integer.MAX_VALUE)
 				);
 	}	
 	
@@ -146,13 +148,18 @@ public class UserServiceTest {
 		MailSender mockMailSender = mock(MailSender.class);  
 		userServiceImpl.setMailSender(mockMailSender);
 
-		userServiceImpl.upgradeLevels();
+		userServiceImpl.upgradeLevels();////////
 
-		verify(mockUserDao, times(2)).update(any(User.class));				  
-		verify(mockUserDao, times(2)).update(any(User.class));
+		verify(mockUserDao, times(2)).update(any(User.class));	
+		
+		//verify(mockUserDao, times(2)).update(any(User.class));//
+		
 		verify(mockUserDao).update(users.get(1));
+		
 		assertEquals(users.get(1).getLevel(), Level.SILVER);
+		
 		verify(mockUserDao).update(users.get(3));
+		
 		assertEquals(users.get(3).getLevel(), Level.GOLD);
 
 		ArgumentCaptor<SimpleMailMessage> mailMessageArg = ArgumentCaptor.forClass(SimpleMailMessage.class);  
@@ -237,10 +244,7 @@ public class UserServiceTest {
 		testUserService.setUserDao(this.userDao); 
 		testUserService.setMailSender(this.mailSender);
 		
-		// context.getBean�� ù��° �Ķ������ �ƱԸ�Ʈ�� &userService�� �����ϴ� ����
-		// �� '&' Prefix�� userService�� ���� ������
-		// setTarget �޼ҵ带 ȣ���Ͽ� userService�� BeanFactory���� ������ �� ȣ��� setTarget �޼ҵ忡 ���Ե� userServiceImpl��
-		// testUserService�� �����ϱ� ���ؼ���.
+		
 		TxProxyFactoryBean txProxyFactoryBean = 
 				context.getBean("&userService", TxProxyFactoryBean.class);
 		txProxyFactoryBean.setTarget(testUserService);

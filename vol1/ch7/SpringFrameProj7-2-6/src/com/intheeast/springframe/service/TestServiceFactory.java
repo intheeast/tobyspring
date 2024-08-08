@@ -50,22 +50,22 @@ public class TestServiceFactory {
     }
 	
 	// 자기 참조 빈 설정 : XmlSqlService의 SqlRegistry, SqlReader 인터페이스 구현 정의의 주석처리 제거
-//	@Bean 
-//	public XmlSqlService sqlService() {
-//		XmlSqlService xmlSqlService = new XmlSqlService();
-//		xmlSqlService.setSqlReader(xmlSqlService);
-//		xmlSqlService.setSqlRegistry(xmlSqlService);
-//		xmlSqlService.setSqlmapFile("sqlmap.xml");
-//      return xmlSqlService;
-//	}
+	@Bean 
+	public XmlSqlService sqlService() {
+		XmlSqlService xmlSqlService = new XmlSqlService();
+		xmlSqlService.setSqlReader(sqlReader());
+		xmlSqlService.setSqlRegistry(sqlRegistry());
+		xmlSqlService.setSqlmapFile("sqlmap.xml");
+      return xmlSqlService;
+	}
 	
-	@Bean
-    public BaseSqlService sqlService() {
-		BaseSqlService baseSqlService = new BaseSqlService();
-		baseSqlService.setSqlReader(sqlReader());
-		baseSqlService.setSqlRegistry(sqlRegistry());
-        return baseSqlService;
-    }
+//	@Bean
+//    public BaseSqlService sqlService() {
+//		BaseSqlService baseSqlService = new BaseSqlService();
+//		baseSqlService.setSqlReader(sqlReader());
+//		baseSqlService.setSqlRegistry(sqlRegistry());
+//        return baseSqlService;
+//    }
 	
 	@Bean
 	public JaxbXmlSqlReader sqlReader() {

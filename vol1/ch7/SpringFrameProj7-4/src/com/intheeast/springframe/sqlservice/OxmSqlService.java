@@ -16,7 +16,7 @@ import com.intheeast.springframe.sqlservice.jaxb.Sqlmap;
 
 public class OxmSqlService implements SqlService {
 
-private final BaseSqlService baseSqlService = new BaseSqlService();
+	private final BaseSqlService baseSqlService = new BaseSqlService();
 	
 	private final OxmSqlReader oxmSqlReader = new OxmSqlReader();
 	private SqlRegistry sqlRegistry = new HashMapSqlRegistry();
@@ -33,11 +33,11 @@ private final BaseSqlService baseSqlService = new BaseSqlService();
 		this.oxmSqlReader.setSqlmap(sqlmap);
 	}
 
-	@PostConstruct
+	@PostConstruct  // sqlService() 팩토리 메서드가 리턴한후에, Spring IoC에 의해 호출됨
 	public void loadSql() {
 		this.baseSqlService.setSqlReader(this.oxmSqlReader);
 		this.baseSqlService.setSqlRegistry(this.sqlRegistry);
-		
+		///////////////////////////////////
 		this.baseSqlService.loadSql();
 	}
 
@@ -47,7 +47,7 @@ private final BaseSqlService baseSqlService = new BaseSqlService();
 	
 	private class OxmSqlReader implements SqlReader {
 		private Unmarshaller unmarshaller;
-		private Resource sqlmap; //= new ClassPathResource("sqlmap.xml", UserDao.class);
+		private Resource sqlmap = new ClassPathResource("sqlmap.xml");
 
 		public void setUnmarshaller(Unmarshaller unmarshaller) {
 			this.unmarshaller = unmarshaller;

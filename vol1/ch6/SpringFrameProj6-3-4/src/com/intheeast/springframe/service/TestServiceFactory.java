@@ -31,6 +31,11 @@ public class TestServiceFactory {
 		return userDaoJdbc;
 	}
 	
+	// UserService 인터페이스를 구현한 클래스 객체의 프록시[자바 다이나믹 프록시]를
+	// 생성하는 팩토리빈을 Spring Ioc에 의해 생성되게 하고 등록
+	// UserService 구체의 프록시도 빈으로 등록된다.
+	// Bean Name : &userService
+	// Bean Name : userService -> &userService[TxProxyFactoryBean]가 만든 프록시
 	@Bean
 	public TxProxyFactoryBean userService() {
 		TxProxyFactoryBean txProxyFactoryBean = new TxProxyFactoryBean();

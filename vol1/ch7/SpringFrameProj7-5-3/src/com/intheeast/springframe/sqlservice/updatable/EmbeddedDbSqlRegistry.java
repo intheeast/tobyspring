@@ -48,11 +48,13 @@ public class EmbeddedDbSqlRegistry implements UpdatableSqlRegistry {
 
 	public void updateSql(Map<String, String> sqlmap) throws SqlUpdateFailureException {
 		transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				for(Map.Entry<String, String> entry : sqlmap.entrySet()) {
 					updateSql(entry.getKey(), entry.getValue());
 				}
 			}
+			
 		});
 	}
 }

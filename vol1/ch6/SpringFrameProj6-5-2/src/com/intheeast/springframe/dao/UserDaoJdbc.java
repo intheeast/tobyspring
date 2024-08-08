@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
@@ -17,6 +19,17 @@ import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
 public class UserDaoJdbc implements UserDao {	
+	
+	@PostConstruct
+	public void postBean() {
+		System.out.println("postBean");
+	}
+	
+	@PreDestroy
+	public void preDestroyBean() {
+		System.out.println("preDestroyBean");
+	}
+	
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}

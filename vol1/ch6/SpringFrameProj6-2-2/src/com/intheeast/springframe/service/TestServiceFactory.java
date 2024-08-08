@@ -23,20 +23,19 @@ public class TestServiceFactory {
 
 		return dataSource;
 	}
+	
+	@Bean
+	public DataSourceTransactionManager transactionManager() {
+		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+		dataSourceTransactionManager.setDataSource(dataSource());
+		return dataSourceTransactionManager;
+	}
 
 	@Bean
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
 		userDaoJdbc.setDataSource(dataSource());
 		return userDaoJdbc;
-	}
-	
-	@Bean /*(name="userService1")*/
-	public UserService userService() {
-		UserServiceTx userServiceTx = new UserServiceTx();
-		userServiceTx.setTransactionManager(transactionManager());
-		userServiceTx.setUserService(userServiceImpl());
-		return userServiceTx;
 	}
 	
 	@Bean /*(name="userService2")*/
@@ -47,16 +46,17 @@ public class TestServiceFactory {
 		return userServiceImpl;
 	}
 	
+	@Bean /*(name="userService1")*/
+	public UserService userService() {
+		UserServiceTx userServiceTx = new UserServiceTx();
+		userServiceTx.setTransactionManager(transactionManager());
+		userServiceTx.setUserService(userServiceImpl());
+		return userServiceTx;
+	}	
+	
 	@Bean
 	public DummyMailSender mailSender() {
 		DummyMailSender dummyMailSender = new DummyMailSender();
 		return dummyMailSender;
-	}
-	
-	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-		dataSourceTransactionManager.setDataSource(dataSource());
-		return dataSourceTransactionManager;
 	}
 }

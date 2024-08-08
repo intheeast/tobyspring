@@ -13,17 +13,17 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-core</artifactId>
-	    <version>5.3.20</version>
+	    <version>6.1.0</version>
 	</dependency>
 	<dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>5.3.20</version>
+        <version>6.1.0</version>
     </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
-        <version>5.3.20</version>        
+        <version>6.1.0</version>        
         <!-- <scope>test</scope>  -->
     </dependency>
 	
@@ -36,16 +36,25 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-jdbc</artifactId>
-	    <version>5.3.20</version>
+	    <version>6.1.0</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+	<!-- 
 	<dependency>
 	    <groupId>org.junit.jupiter</groupId>
 	    <artifactId>junit-jupiter</artifactId>
-	    <version>5.5.0</version>
+	    <version>5.5.0</version>	    
+	</dependency>
+	-->
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-api</artifactId>
+	    <version>5.10.1</version>
 	    <!-- <scope>test</scope> -->
 	</dependency>
+
     
   </dependencies>
   <build>
@@ -55,7 +64,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <release>11</release>
+          <release>17</release>
         </configuration>
       </plugin>
     </plugins>

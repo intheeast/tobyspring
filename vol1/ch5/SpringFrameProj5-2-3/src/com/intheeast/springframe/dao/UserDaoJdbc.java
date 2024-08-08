@@ -1,7 +1,7 @@
 package com.intheeast.springframe.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -15,8 +15,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
-
-
 
 public class UserDaoJdbc implements UserDao {
 	

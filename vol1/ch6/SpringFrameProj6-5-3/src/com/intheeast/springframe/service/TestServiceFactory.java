@@ -15,6 +15,7 @@ import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 public class TestServiceFactory {
+	
 	@Bean
 	public DataSource dataSource() {
 		
@@ -36,12 +37,10 @@ public class TestServiceFactory {
 		return dataSourceTransactionManager;
 	}
 	
-	// aop
-	//<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 	@Bean
-	  public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
-	    return new DefaultAdvisorAutoProxyCreator();
-	  }
+	public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+		return new DefaultAdvisorAutoProxyCreator();
+	}
 	
 	@Bean
 	public TransactionAdvice transactionAdvice() {
@@ -52,8 +51,10 @@ public class TestServiceFactory {
 
 	@Bean
 	public AspectJExpressionPointcut transactionPointcut() {
-		AspectJExpressionPointcut aspectJExpressionPointcut = new AspectJExpressionPointcut();
-		aspectJExpressionPointcut.setExpression("execution(* *..*ServiceImpl.upgrade*(..))");		
+		AspectJExpressionPointcut aspectJExpressionPointcut = 
+				new AspectJExpressionPointcut();
+		aspectJExpressionPointcut.setExpression(
+				"execution(* *..*ServiceImpl.upgrade*(..))");		
 		return aspectJExpressionPointcut;
 	}
 

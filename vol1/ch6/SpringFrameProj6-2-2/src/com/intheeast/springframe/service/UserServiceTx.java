@@ -6,7 +6,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.intheeast.springframe.domain.User;
 
-
+// 트랜잭션 경계설정을 위한 UserServiceTx 도입 : 비즈니스 트랜잭션 처리를 담당
+// 그림 6-3 참조
 public class UserServiceTx implements UserService {
 
 	UserService userService;

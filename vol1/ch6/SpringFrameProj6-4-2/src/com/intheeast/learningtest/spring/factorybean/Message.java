@@ -2,7 +2,7 @@ package com.intheeast.learningtest.spring.factorybean;
 
 
 public class Message {
-String text;
+	String text;
 	
 	private Message(String text) {
 		this.text = text;
@@ -15,5 +15,4 @@ String text;
 	public static Message newMessage(String text) {
 		return new Message(text);
 	}
-
 }

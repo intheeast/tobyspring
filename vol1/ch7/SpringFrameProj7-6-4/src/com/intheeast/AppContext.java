@@ -29,6 +29,7 @@ import com.mysql.cj.jdbc.Driver;
 @Import(SqlServiceContext.class)
 public class AppContext {
 	@Bean
+	@Qualifier("jdbcDataSource")
 	public DataSource dataSource() {
 		SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(Driver.class);

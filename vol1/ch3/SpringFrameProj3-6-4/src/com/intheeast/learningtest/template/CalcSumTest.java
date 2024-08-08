@@ -16,7 +16,7 @@ public class CalcSumTest {
 		this.calculator = new Calculator();
 		String getClass = getClass().toString();
 		System.out.println("setUp:" + getClass);
-		this.numFilepath = getClass().getResource("numbers.txt").getPath();
+		this.numFilepath = getClass().getResource("src/main/resources/numbers.txt").getPath();
 		//System.out.println("setUp:numFilepath" + this.numFilepath);
 	}
 	

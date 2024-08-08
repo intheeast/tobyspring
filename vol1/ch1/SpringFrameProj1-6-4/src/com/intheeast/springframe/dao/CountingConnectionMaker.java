@@ -15,7 +15,8 @@ public class CountingConnectionMaker implements ConnectionMaker {
 
 	@Override
 	public Connection makeConnection() throws ClassNotFoundException, SQLException {
-		this.counter++;
+		// realConnectionMaker는 IoC로부터 주입받음(Dependency Injection)
+		this.counter++; // <- this.counter = this.counter + 1;
 		return realConnectionMaker.makeConnection();
 	}
 	

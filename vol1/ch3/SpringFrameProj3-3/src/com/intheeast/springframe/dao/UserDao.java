@@ -22,32 +22,53 @@ public class UserDao {
 		return this.dataSource;
 	}
 	
-	public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {
+	public void jdbcContextWithStatementStrategy(StatementStrategy stmt) 
+			throws SQLException 
+	{
 		Connection c = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps = null;		
 
 		try {
-			c = dataSource.getConnection();
+			
+			c = dataSource.getConnection();		
 
 			ps = stmt.makePreparedStatement(c);
 		
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			throw e;
+			throw e;			
 		} finally {
-			if (ps != null) { try { ps.close(); } catch (SQLException e) {} }
-			if (c != null) { try {c.close(); } catch (SQLException e) {} }
-		}
+			if (ps != null) { 
+				try { 
+					ps.close(); 
+				} catch (SQLException e) {
+					
+				} 
+			}
+			
+			if (c != null) { 
+				try {
+					c.close(); 
+				} catch (SQLException e) {
+					
+				} 
+			}			
+		}		
+
 	}
 	
 	public void add(final User user) throws SQLException {
 		jdbcContextWithStatementStrategy(
 				
-				new StatementStrategy() {			
-					public PreparedStatement makePreparedStatement(Connection c)throws SQLException
+				new StatementStrategy() {
+					
+					
+					public PreparedStatement makePreparedStatement(Connection c)
+							throws SQLException
 					{
 						PreparedStatement ps = 
-							c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
+							c.prepareStatement(
+									"insert into users(id, name, password) values(?,?,?)");
 						ps.setString(1, user.getId());
 						ps.setString(2, user.getName());
 						ps.setString(3, user.getPassword());
@@ -59,13 +80,14 @@ public class UserDao {
 	}
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
-		
+		// SimpleDriverDataSource
 		Connection c = this.dataSource.getConnection();
 		
-		PreparedStatement ps = c
+		PreparedStatement ps = c                            
 				.prepareStatement("select * from users where id = ?");
 		ps.setString(1, id);
 
+		//EmptyResultDataAccessException because of //unknown_id
 		ResultSet rs = ps.executeQuery();
 		
 		User user = null;
@@ -88,7 +110,9 @@ public class UserDao {
 	public void deleteAll() throws SQLException {
 		jdbcContextWithStatementStrategy(
 			new StatementStrategy() {
-				public PreparedStatement makePreparedStatement(Connection c) throws SQLException 
+				
+				public PreparedStatement makePreparedStatement(Connection c) 
+						throws SQLException 
 				{
 					return c.prepareStatement("delete from users");
 				}

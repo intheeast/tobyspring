@@ -24,7 +24,7 @@ public class TransactionHandler implements InvocationHandler {
 	}
 
 	public void setPattern(String pattern) {
-		this.pattern = pattern;
+		this.pattern = pattern; // upgradeLevels
 	}
 
 	public Object invoke(Object proxy, Method method, Object[] args)

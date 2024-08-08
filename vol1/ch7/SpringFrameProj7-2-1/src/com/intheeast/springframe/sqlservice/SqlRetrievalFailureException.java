@@ -1,6 +1,7 @@
 package com.intheeast.springframe.sqlservice;
 
 public class SqlRetrievalFailureException extends RuntimeException {
+	
 	public SqlRetrievalFailureException() {
 		super();
 	}

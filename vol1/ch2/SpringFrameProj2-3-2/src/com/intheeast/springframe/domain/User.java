@@ -1,5 +1,6 @@
 package com.intheeast.springframe.domain;
 
+// User는 도메인.
 public class User {
 	String id;
 	String name;

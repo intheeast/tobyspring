@@ -39,7 +39,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
-	@Autowired UserService userService;	
+	@Autowired UserService userService;	// ProxyFactoryBean 빈이 아니라,
+										// ProxyFactoryBean 빈이 생성한 프록시 객체!!!
 	@Autowired UserDao userDao;	
 	@Autowired UserServiceImpl userServiceImpl;
 	@Autowired MailSender mailSender; 
@@ -135,6 +136,16 @@ public class UserServiceTest {
 	}
 	
 	@Test
+	public void upgradeLevelsProxy() throws Exception {		
+		userDao.deleteAll();			  
+		for(User user : users) 
+			userDao.add(user);
+				
+		userService.upgradeLevels();	
+
+	}
+	
+	@Test
 	public void mockUpgradeLevels() throws Exception {
 		//UserServiceImpl userServiceImpl = new UserServiceImpl();
 
@@ -148,7 +159,7 @@ public class UserServiceTest {
 		userServiceImpl.upgradeLevels();
 
 		verify(mockUserDao, times(2)).update(any(User.class));				  
-		verify(mockUserDao, times(2)).update(any(User.class));
+//		verify(mockUserDao, times(2)).update(any(User.class));
 		verify(mockUserDao).update(users.get(1));
 		assertEquals(users.get(1).getLevel(), Level.SILVER);
 		verify(mockUserDao).update(users.get(3));
@@ -244,7 +255,7 @@ public class UserServiceTest {
 	public void ClassNamePointcutAdvisor() {
 		NameMatchMethodPointcut classMethodPointcut = new NameMatchMethodPointcut() {
 			public ClassFilter getClassFilter() {
-				return new ClassFilter() {
+				return new ClassFilter() { // boolean matches(Class<?> clazz);
 					public boolean matches(Class<?> clazz) {
 						return clazz.getSimpleName().startsWith("HelloT");
 					}
@@ -254,10 +265,11 @@ public class UserServiceTest {
 		
 		classMethodPointcut.setMappedName("sayH*");
 		
-		class HelloWorld extends HelloTarget {};		
+		class HelloWorld extends HelloTarget {}; // local class 	
 		checkAdviced(new HelloWorld(), classMethodPointcut, false);
 		
-		class HelloToby extends HelloTarget {};
+//		System.out.println("***********************************************");
+		class HelloToby extends HelloTarget {};  // local class 
 		checkAdviced(new HelloToby(), classMethodPointcut, true);		
 		
 	}
@@ -278,5 +290,17 @@ public class UserServiceTest {
 			assertEquals(proxiedHello.sayHi("Toby"), "Hi Toby");
 			assertEquals(proxiedHello.sayThanks("Toby"), "Thanks Toby");
 		}
+	}
+	
+	private void checkAdviced2(Object target, Pointcut pointcut, boolean adviced) {
+		ProxyFactoryBean pfBean = new ProxyFactoryBean();
+		pfBean.setTarget(target);
+		pfBean.addAdvisor(new DefaultPointcutAdvisor(pointcut, new UpperCaseAdvice()));
+		Hello proxiedHello = (Hello)pfBean.getObject();		
+		
+		System.out.println(proxiedHello.sayHello("Toby"));
+		System.out.println(proxiedHello.sayHi("Toby"));
+		System.out.println(proxiedHello.sayThanks("Toby"));
+		
 	}
 }

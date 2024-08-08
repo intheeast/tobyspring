@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {TestServiceFactory.class}/*locations="/test-applicationContext.xml"/*/)
+@ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
 	@Autowired UserService userService;	
 	@Autowired UserService testUserService;

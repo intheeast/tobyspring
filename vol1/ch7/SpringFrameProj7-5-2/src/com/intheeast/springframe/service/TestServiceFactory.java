@@ -82,7 +82,8 @@ public class TestServiceFactory {
                 .setType(EmbeddedDatabaseType.H2)
                 .setName("embeddedDatabase")
                 .setScriptEncoding("UTF-8")
-                .addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+//                .addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+                .addScript("sqlRegistrySchema.sql")
                 .build();
     }
 

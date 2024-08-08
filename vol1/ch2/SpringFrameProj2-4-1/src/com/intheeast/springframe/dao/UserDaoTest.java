@@ -17,7 +17,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.intheeast.springframe.domain.User;
 
-
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {DaoFactory.class})
 public class UserDaoTest { 
@@ -25,7 +26,7 @@ public class UserDaoTest {
 //	@Autowired
 //	ApplicationContext context;
 	
-	@Autowired
+	@Autowired  // 어노테이션 기반의 구성 정보
 	private UserDao dao;
 	
 	private User user1;
@@ -33,7 +34,7 @@ public class UserDaoTest {
 	private User user3;	
 		
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		
 		//this.dao = this.context.getBean("userDao", UserDao.class);
 		user1 = new User("user1", "sungkim", "5678");
@@ -42,7 +43,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void addAndGet() throws SQLException, ClassNotFoundException {				
+	void addAndGet() throws SQLException, ClassNotFoundException {				
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 		
@@ -60,7 +61,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void count() throws SQLException, ClassNotFoundException {		
+	void count() throws SQLException, ClassNotFoundException {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 
@@ -75,7 +76,7 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void getUserFailure() throws SQLException, ClassNotFoundException {		
+	void getUserFailure() throws SQLException, ClassNotFoundException {		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);		
 		

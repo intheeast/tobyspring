@@ -55,7 +55,7 @@ public class UserServiceTest {
 	
 	@BeforeEach
 	public void setUp() {	
-		
+				
 		users = Arrays.asList(
 				new User("bumjin", "박범진", "p1", "user1@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
 				new User("joytouch", "강명성", "p2", "user2@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
@@ -235,6 +235,11 @@ public class UserServiceTest {
 	
 	public static class TestUserService extends UserServiceImpl {
 		private String id = "madnite1"; // users(3).getId()
+		
+//		public TestUserService() {
+//			this.setUserDao(null);
+//		}
+		
 		
 		protected void upgradeLevel(User user) {
 			if (user.getId().equals(this.id)) throw new TestUserServiceException();  

@@ -27,14 +27,14 @@ import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 import com.intheeast.springframe.service.UserServiceTest.TestUserService;
 import com.mysql.cj.jdbc.Driver;
 
-@Configuration
+@Configuration  // java based configuration
 @EnableTransactionManagement
 public class TestApplicationContext {
 	/**
 	 * DB연결과 트랜잭션
 	 */
 	
-	@Bean
+	@Bean // java based configuration
 	public DataSource dataSource() {
 		SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(Driver.class);
@@ -44,7 +44,7 @@ public class TestApplicationContext {
 		return ds;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public PlatformTransactionManager transactionManager() {
 		DataSourceTransactionManager tm = new DataSourceTransactionManager();
 		tm.setDataSource(dataSource());
@@ -54,18 +54,19 @@ public class TestApplicationContext {
 	/**
 	 * 애플리케이션 로직 & 테스트용 빈
 	 */
-	
+	// annotation based configuration
 	@Autowired SqlService sqlService;
 	
-	@Bean 
+	@Bean // java based configuration
 	public UserDao userDao() {
 		UserDaoJdbc dao = new UserDaoJdbc();
 		dao.setDataSource(dataSource());
 		dao.setSqlService(this.sqlService);
+//		dao.setSqlService(sqlService());
 		return dao;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public UserService userService() {
 		UserServiceImpl service = new UserServiceImpl();
 		service.setUserDao(userDao());
@@ -73,7 +74,7 @@ public class TestApplicationContext {
 		return service;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public UserService testUserService() {
 		TestUserService testService = new TestUserService();
 		testService.setUserDao(userDao());
@@ -81,7 +82,7 @@ public class TestApplicationContext {
 		return testService;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public MailSender mailSender() {
 		return new DummyMailSender();
 	}
@@ -90,7 +91,7 @@ public class TestApplicationContext {
 	 * SQL서비스
 	 */
 	
-	@Bean
+	@Bean // java based configuration
 	public SqlService sqlService() {
 		OxmSqlService sqlService = new OxmSqlService();
 		sqlService.setUnmarshaller(unmarshaller());
@@ -98,26 +99,26 @@ public class TestApplicationContext {
 		return sqlService;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public SqlRegistry sqlRegistry() {
 		EmbeddedDbSqlRegistry sqlRegistry = new EmbeddedDbSqlRegistry();
 		sqlRegistry.setDataSource(embeddedDatabase());
 		return sqlRegistry;
 	}
 	
-	@Bean
+	@Bean // java based configuration
 	public Unmarshaller unmarshaller() {
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		marshaller.setContextPath("com.intheeast.springframe.sqlservice.jaxb");
 		return marshaller;
 	}
 	
-	@Bean 
+	@Bean // java based configuration
 	public DataSource embeddedDatabase() {
 		return new EmbeddedDatabaseBuilder()
-			.setName("embeddedDatabase")
-			.setType(EmbeddedDatabaseType.H2)
-			.addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
-			.build();
+				.setName("embeddedDatabase")
+				.setType(EmbeddedDatabaseType.H2)
+				.addScript("sqlRegistrySchema.sql")
+				.build();
 	}
 }

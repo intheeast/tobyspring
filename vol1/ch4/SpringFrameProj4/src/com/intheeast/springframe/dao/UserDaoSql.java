@@ -16,10 +16,11 @@ public class UserDaoSql {
 		System.out.println("UserDaoSql DConstructor");
 	}
 	
-	private Connection getConnection() throws ClassNotFoundException,
-	SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb?characterEncoding=UTF-8", 
+	private Connection getConnection() 
+			throws ClassNotFoundException,SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection c = 
+				DriverManager.getConnection("jdbc:mysql://localhost:3306/sbdt_db?characterEncoding=UTF-8", 
 				"root",
 				"1234");
 		return c;

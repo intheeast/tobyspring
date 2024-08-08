@@ -5,5 +5,5 @@
 // Generated on: 2009.08.12 at 05:59:18 ¿ÀÈÄ EST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.epril.com/sqlmap", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://www.epril.com/sqlmap", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.intheeast.springframe.sqlservice.jaxb;

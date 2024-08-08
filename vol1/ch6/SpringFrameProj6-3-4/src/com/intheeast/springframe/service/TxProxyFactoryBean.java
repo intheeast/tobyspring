@@ -38,7 +38,9 @@ public class TxProxyFactoryBean implements FactoryBean<Object> {
 		
 		// Create Dynamic Proxy!!!
 		return Proxy.newProxyInstance(
-			getClass().getClassLoader(), new Class[] { serviceInterface }, txHandler);
+			getClass().getClassLoader(), 
+			new Class[] { serviceInterface }, 
+			txHandler);
 	}
 
 	public Class<?> getObjectType() {

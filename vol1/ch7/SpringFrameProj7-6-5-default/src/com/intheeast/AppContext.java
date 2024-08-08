@@ -3,6 +3,7 @@ package com.intheeast;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,17 +26,20 @@ import com.mysql.cj.jdbc.Driver;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.intheeast.springframe")
-@Import(SqlServiceContext.class)
-@PropertySource("classpath:/com/database.properties")
+@Import(SqlServiceContext.class) // 컴파일 타임 때 import할 클래스가 결정됨
+//@PropertySource("classpath:/com/database.properties")
+@PropertySource("database.properties")
 public class AppContext {
 	@Autowired Environment env;
 
 	@Bean
+	@Qualifier("jdbcDataSource")
 	public DataSource dataSource() {
 		SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		
 		try {
-			ds.setDriverClass((Class<? extends Driver>)Class.forName(env.getProperty("db.driverClass")));
+			ds.setDriverClass((Class<? extends Driver>)Class.forName(
+					env.getProperty("db.driverClass")));
 		}
 		catch(ClassNotFoundException e) {
 			throw new RuntimeException(e);

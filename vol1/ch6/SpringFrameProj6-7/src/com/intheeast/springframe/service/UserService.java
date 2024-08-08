@@ -21,5 +21,6 @@ public interface UserService {
 	@Transactional(readOnly=true)
 	List<User> getAll();
 	
+	//@Transactional
 	void upgradeLevels();
 }

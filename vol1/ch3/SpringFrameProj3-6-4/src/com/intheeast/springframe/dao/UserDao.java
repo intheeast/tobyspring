@@ -1,5 +1,6 @@
 package com.intheeast.springframe.dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.lang.Nullable;
 
 import com.intheeast.springframe.domain.User;
 
@@ -58,6 +60,8 @@ public class UserDao {
 	//   이 문제를 해결하려면, Spring Framework의 버전을 확인하고, 
 	//   해당 버전에 맞게 JdbcTemplate.queryForObject() 메서드를 호출하거나 
 	//   jdbcTemplate.queryForStream() 메서드를 사용하는 등 적절한 대응을 해주셔야 합니다.
+	/*
+	 
 	/*public Optional<User> get(String id) {
 		String sql = "select * from users where id = ?";
 		User user = jdbcTemplate.queryForObject(sql, userRowMapper(), id);
@@ -68,7 +72,35 @@ public class UserDao {
         }		
 	}*/
 	
+	/*
+	 public interface RowMapper<T> {	
+		@Nullable
+		T mapRow(ResultSet rs, int rowNum) throws SQLException;
+	 }
+	 */
+	
+	/*
+	 User mapRow(ResultSet rs, int rowNum) throws SQLException {
+	 		User user = new User();
+        	user.setId(rs.getString("id"));
+        	user.setName(rs.getString("name"));
+        	user.setPassword(rs.getString("password"));            
+            return user;
+	 }
+	 */
+	/*
+	 interface RowMapper<T> {
+		 User mapRow(ResultSet rs, int rowNum) throws SQLException {
+		 	User user = new User();
+        	user.setId(rs.getString("id"));
+        	user.setName(rs.getString("name"));
+        	user.setPassword(rs.getString("password"));            
+            return user;
+		 }
+	 }
+	 */
 	private RowMapper<User> userRowMapper() {
+		// (rs, rowNum) -> rs.getInt(1)
         return ((rs, rowNum) -> {
         	User user = new User();
         	user.setId(rs.getString("id"));
@@ -87,9 +119,14 @@ public class UserDao {
 	};*/
 	
 	public Optional<User> get(String id) throws DataAccessException {
+		Number n;
 	    String sql = "select * from users where id = ?";
-	    
-	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, userRowMapper(), id)) {
+	    // public <User> Stream<User> queryForStream(String sql, RowMapper<User> rowMapper, @Nullable Object... args)
+	    try (Stream<User> stream = 
+	    		jdbcTemplate.queryForStream(
+	    				sql, 
+	    				userRowMapper(),  //RowMapper<User> 
+	    				id)) {
 	        return stream.findFirst();
 	    } catch (DataAccessException e) {
 	        return Optional.empty();
@@ -112,8 +149,7 @@ public class UserDao {
 	
 	public void deleteAll() throws DataAccessException {
 		this.jdbcTemplate.update("delete from users");
-	}
-	
+	}	
 	
 	
 	/*
@@ -127,16 +163,46 @@ public class UserDao {
 		//return this.jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users", Integer.class);
 		
 	}*/
+	/*
+	 public interface RowMapper<T> {	
+		@Nullable
+		T mapRow(ResultSet rs, int rowNum) throws SQLException;
+	 }
+	 
+	 // Type Inference!!!
+	 int mapRow(ResultSet rs, int rowNum) throws SQLException {
+	 	return (rs, rowNum) -> rs.getInt(1);	 
+	 }
+	 */
+	// public <T> List<T> query(
+	// 	String sql, 
+	//  RowMapper<T> rowMapper) throws DataAccessException
+	// 
 	
+	// 
 	public int getCount() throws DataAccessException {
-	    List<Integer> result = jdbcTemplate.query("select count(*) from users", 
-	    		(rs, rowNum) -> rs.getInt(1));
+		
+		/*
+		 interface RowMapper<T> {
+			 Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+			 	return rs.getInt(1);
+			 }
+		 }
+		 */
+		// 타입 파라미터로 프리미티브가 올 수 없다.
+		//public <T> List<Integer> query(String sql, RowMapper<Integer> rowMapper)
+	    List<Integer> result = jdbcTemplate.query(
+	    		"select count(*) from users", 
+	    		(rs, rowNum) -> rs.getInt(1)// 아규먼트를 보고 판단, 리턴값
+	    		);
+	    
 	    return (int) DataAccessUtils.singleResult(result);
 	}
 	
 	
 	public List<User> getAll() throws DataAccessException {
-		return this.jdbcTemplate.query("select * from users order by id",
+		return this.jdbcTemplate.query(
+				"select * from users order by id",
 				userRowMapper()
 		);
 	}

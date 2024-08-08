@@ -32,7 +32,7 @@ import com.mysql.cj.jdbc.Driver;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.intheeast.springframe")
 @EnableSqlService
-@PropertySource("classpath:/com/database.properties")
+@PropertySource("database.properties")
 public class AppContext implements SqlMapConfig {
 	@Value("${db.driverClass}") Class<? extends Driver> driverClass;
 	@Value("${db.url}") String url;
@@ -41,7 +41,7 @@ public class AppContext implements SqlMapConfig {
 	
 	@Override
 	public Resource getSqlMapResouce() {
-		return new ClassPathResource("sqlmap.xml", UserDao.class);
+		return new ClassPathResource("sqlmap.xml");
 	}
 	
 	@Bean

@@ -3,8 +3,8 @@ package com.intheeast.springframe.domain;
 
 
 public enum Level {
-	GOLD(3, null), SILVER(2, GOLD), BASIC(1, SILVER);  
-	
+	GOLD(3, null), SILVER(2, GOLD), BASIC(1, SILVER);	 
+		
 	private final int value;
 	private final Level next; 
 	

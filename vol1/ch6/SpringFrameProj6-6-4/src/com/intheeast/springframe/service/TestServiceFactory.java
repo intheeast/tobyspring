@@ -25,6 +25,7 @@ import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 @EnableAspectJAutoProxy
+@ComponentScan(basePackages = "com.intheeast.springframe.service")
 public class TestServiceFactory {
 	@Bean
 	public DataSource dataSource() {
@@ -46,44 +47,29 @@ public class TestServiceFactory {
 		return dataSourceTransactionManager;
 	}
 	
-//	<tx:advice id="transactionAdvice">
-//		<tx:attributes>
-//			<tx:method name="get*" read-only="true"/>
-//			<tx:method name="*" />
-//		</tx:attributes> 
-//	</tx:advice>
-//	<tx:advice> 태그로 인해 Spring IoC 컨테이너에 transactionAdvice 이름의 TransactionInterceptor 타입의 빈 객체가 생성되어 관리된다
 	@Bean
     public TransactionInterceptor transactionAdvice() {
         NameMatchTransactionAttributeSource txAttributeSource = new NameMatchTransactionAttributeSource();
         RuleBasedTransactionAttribute readOnlyTx = new RuleBasedTransactionAttribute();
         readOnlyTx.setReadOnly(true);
         readOnlyTx.setTimeout(30);
+        
         RuleBasedTransactionAttribute readWriteTx = new RuleBasedTransactionAttribute();
         readWriteTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         readWriteTx.setIsolationLevel(TransactionDefinition.ISOLATION_SERIALIZABLE);
+        
         txAttributeSource.addTransactionalMethod("get*", readOnlyTx);
         txAttributeSource.addTransactionalMethod("*", readWriteTx);
+        
         return new TransactionInterceptor(transactionManager(), txAttributeSource);
     }
 	
-//	<aop:config>
-//		<aop:advisor advice-ref="transactionAdvice" pointcut="bean(*Service)">
-//	</aop:config>
 	@Bean
     public DefaultPointcutAdvisor transactionAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("bean(*Service)");
         return new DefaultPointcutAdvisor(pointcut, transactionAdvice());
     }
-	 
-	
-//	@Bean
-//	public AspectJExpressionPointcut transactionPointcut() {
-//		AspectJExpressionPointcut aspectJExpressionPointcut = new AspectJExpressionPointcut();
-//		aspectJExpressionPointcut.setExpression("execution(* *..*ServiceImpl.upgrade*(..))");		
-//		return aspectJExpressionPointcut;
-//	}
 
 	// application components
 	@Bean
@@ -102,7 +88,6 @@ public class TestServiceFactory {
 	}	
 	
 	
-	// <bean id="testUserService" class="springbook.user.service.UserServiceTest$TestUserServiceImpl" parent="userService" />
 	@Bean
 	@Qualifier("testUserService")
 	public UserServiceImpl testUserService() {

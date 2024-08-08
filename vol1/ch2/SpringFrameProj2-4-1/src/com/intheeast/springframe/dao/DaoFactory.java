@@ -1,9 +1,9 @@
 package com.intheeast.springframe.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
 
 import javax.sql.DataSource;
 
@@ -36,7 +36,7 @@ public class DaoFactory {
 //		이 외에도 java.sql.DriverManager, java.sql.DatabaseMetaData 등의 인터페이스도 JDBC 드라이버에서 구현해야 할 수 있습니다. 이들 인터페이스들은 JDBC API의 핵심이
 //		
 		dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sbdt_db1?characterEncoding=UTF-8");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sbdt_db?characterEncoding=UTF-8");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1234");
 		

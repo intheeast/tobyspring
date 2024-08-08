@@ -214,7 +214,7 @@ public class UserServiceTest {
 	}
 	
 	
-	@Test//(expected=TransientDataAccessResourceException.class) 
+	@Test
 	public void readOnlyTransactionAttribute() {
 		
 		Assertions.assertThrows(TransientDataAccessResourceException.class, 
@@ -234,13 +234,14 @@ public class UserServiceTest {
 		private String id = "madnite1"; // users(3).getId()
 		
 		protected void upgradeLevel(User user) {
-			if (user.getId().equals(this.id)) throw new TestUserServiceException();  
+			if (user.getId().equals(this.id)) 
+				throw new TestUserServiceException();  
 			super.upgradeLevel(user);  
 		}
 		
 		public List<User> getAll() {
 			for(User user : super.getAll()) {
-				super.update(user);
+				super.update(user); // 
 			}
 			return null;
 		}

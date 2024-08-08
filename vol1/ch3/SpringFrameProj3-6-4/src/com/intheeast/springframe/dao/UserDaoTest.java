@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -21,7 +22,7 @@ import com.intheeast.springframe.domain.User;
 public class UserDaoTest {
 	
 	//@Autowired
-	//private ApplicationContext context;	
+	private ApplicationContext context;	
 	 
 	@Autowired
 	private UserDao dao;
@@ -39,7 +40,8 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void addAndGet() throws SQLException, ClassNotFoundException {				
+	public void addAndGet() throws SQLException, ClassNotFoundException {	
+		
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 		
@@ -47,7 +49,9 @@ public class UserDaoTest {
 		dao.add(user2);
 		assertEquals(dao.getCount(), 2);
 		
+		// User value = null!!!
 		Optional<User> Optuserget1 = dao.get(user1.getId());
+		//Optional<User> useropt = Optuserget1.empty();
 		if(!Optuserget1.isEmpty()) {
 			User userget = Optuserget1.get();
 			assertEquals(user1.getName(), userget.getName());

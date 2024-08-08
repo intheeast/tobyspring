@@ -59,8 +59,7 @@
     	<artifactId>spring-oxm</artifactId>
     	<version>5.3.20</version>
 	</dependency>
-	
-	
+		
 	<dependency>
 	    <groupId>javax.xml.bind</groupId>
 	    <artifactId>jaxb-api</artifactId>
@@ -118,7 +117,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <release>11</release>
+          <release>17</release>
         </configuration>
       </plugin>
     </plugins>

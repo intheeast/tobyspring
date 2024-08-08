@@ -214,7 +214,7 @@ public class UserServiceTest {
 	}
 	
 	
-	@Test//(expected=TransientDataAccessResourceException.class) 
+	@Test 
 	public void readOnlyTransactionAttribute() {
 		
 		Assertions.assertThrows(TransientDataAccessResourceException.class, 

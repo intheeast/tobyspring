@@ -23,7 +23,7 @@ public class UserDaoTest {
 	//@Autowired
 	//private ApplicationContext context;	
 	 
-	@Autowired
+	@Autowired  // Annotation based Configuration MetaData
 	private UserDao dao;
 	
 	private User user1;

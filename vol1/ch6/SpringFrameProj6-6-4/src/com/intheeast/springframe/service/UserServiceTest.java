@@ -83,6 +83,27 @@ public class UserServiceTest {
 		assertEquals(request.get(1), users.get(3).getEmail());		
 	}
 	
+	@Test
+	public void peformanceAspectTest() throws Exception {		
+				
+		userService.deleteAll();
+		
+		for (User user : users) {
+			userService.add(user);
+		}
+		
+		List<User> users = userService.getAll();
+		
+		Optional<User> getUser = userService.get("bumjin");
+		
+		User updateUser = new User("green", "헬로우월드", "p5", "user5@ksug.org", Level.GOLD, 100, Integer.MAX_VALUE);
+		
+		userService.update(updateUser);
+		
+		userService.upgradeLevels();		
+		
+	}
+	
 	private void checkUserAndLevel(User updated, String expectedId, Level expectedLevel) { 
 		assertEquals(updated.getId(), expectedId);
 		assertEquals(updated.getLevel(), expectedLevel);
@@ -212,12 +233,12 @@ public class UserServiceTest {
 	}
 	
 	
-	@Test//(expected=TransientDataAccessResourceException.class) 
+	@Test
 	public void readOnlyTransactionAttribute() {
 		
 		Assertions.assertThrows(TransientDataAccessResourceException.class, 
-				() -> {testUserService.getAll();}); // 트랜잭션 속성이 제대로 적용되었다면,
-													// 여기서 읽기 전용 속성을 위반하였기 때문에 예외가 발생해야 한다.
+			() -> {testUserService.getAll();}); // 트랜잭션 속성이 제대로 적용되었다면,
+												// 여기서 읽기 전용 속성을 위반하였기 때문에 예외가 발생해야 한다.
 	}
 	
 	
@@ -230,10 +251,11 @@ public class UserServiceTest {
 			if (user.getId().equals(this.id)) throw new TestUserServiceException();  
 			super.upgradeLevel(user);  
 		}
-		
+		// transaction advice 지원됨
 		public List<User> getAll() {
 			for(User user : super.getAll()) {
-				super.update(user); // 강제로 쓰기 시도를 한다. 여기서 읽기 전용 속성으로 인한 예외가 발생해야 한다.
+				super.update(user); // 강제로 쓰기 시도를 한다. 
+				                    // 여기서 읽기 전용 속성으로 인한 예외가 발생해야 한다.
 			}
 			return null;
 		}

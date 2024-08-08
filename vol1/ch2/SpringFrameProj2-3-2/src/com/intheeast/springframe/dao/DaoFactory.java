@@ -14,8 +14,17 @@ public class DaoFactory {
 		
 		SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
 		
+		/*
+		 A DataSource object has properties that can be modified when necessary. 
+		 For example, 
+		 if the data source is moved to a different server[database], 
+		 the property for the server can be changed. 
+		 The benefit is that because the data source's properties can be changed, 
+		 any code accessing that data source does not need to be changed. 
+		 */
+		// Class.forName(com.mysql.cj.jdbc.Driver.class);
 		dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sbdt_db1?characterEncoding=UTF-8");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sbdt_db?characterEncoding=UTF-8");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1234");
 

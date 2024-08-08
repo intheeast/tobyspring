@@ -31,6 +31,8 @@ public class UserDao {
 
 
 	public User get(String id) throws ClassNotFoundException, SQLException {
+		Object obj;
+		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/sbdt_db?characterEncoding=UTF-8", 
 				"root",

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,20 +20,26 @@ import org.springframework.stereotype.Repository;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 import com.intheeast.springframe.sqlservice.SqlService;
-
-@Repository("userDao")
+//userDaoJdbc
+@Repository("userDao") // annotation based configuration
 public class UserDaoJdbc implements UserDao {	
 	
+	public UserDaoJdbc() {
+		int a = 1;
+	}
+	
 	@Autowired
+	private SqlService sqlService;
+	
+	@Autowired
+	@Qualifier("jdbcDataSource")
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
 	private JdbcTemplate jdbcTemplate;
 	
-	@Autowired
-	private SqlService sqlService;
-
+	
 	public void setSqlService(SqlService sqlService) {
 		this.sqlService = sqlService;
 	}

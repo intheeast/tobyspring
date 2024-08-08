@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
@@ -28,7 +29,7 @@ import com.mysql.cj.exceptions.MysqlErrorNumbers;
 @ContextConfiguration(classes = {TestDaoFactory.class})
 public class UserDaoTest {	
 	 
-	@Autowired UserDao dao; 
+	@Autowired UserDao dao;
 	@Autowired UserDaoSql userDaoSql;
 	@Autowired DataSource dataSource;
 	
@@ -90,7 +91,7 @@ public class UserDaoTest {
 		assertEquals(dao.getCount(), 0);		
 		
 		Optional<User> Optuserget = dao.get("unknown_id");
-		assertTrue(Optuserget.isEmpty());		
+		assertTrue(Optuserget.isEmpty());
 	}
 	
 	@Test
@@ -143,7 +144,10 @@ public class UserDaoTest {
 			dao.add(user1);
 			dao.add(user1);
 		} //org.springframework.dao.DuplicateKeyException
-		catch(DuplicateKeyException ex) {
+//		catch(DuplicateKeyException e) {
+//			e.printStackTrace();			
+//		}
+		catch(RuntimeException ex) {
 			SQLException sqlEx = (SQLException)ex.getCause();
 			SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);			
 			DataAccessException transEx = set.translate(null, null, sqlEx);
@@ -161,12 +165,16 @@ public class UserDaoTest {
 		} //org.springframework.dao.DuplicateKeyException
 		catch(SQLException ex) {
 			System.out.println(ex);
-			if (ex.getErrorCode() == MysqlErrorNumbers.ER_DUP_ENTRY)
-				throw new DuplicateKeyException(ex.getMessage());
-			else
-				throw new RuntimeException(ex);
+			System.out.println(ex.getErrorCode());
+			assertEquals(ex.getErrorCode(), MysqlErrorNumbers.ER_DUP_ENTRY);
+//			if (ex.getErrorCode() == MysqlErrorNumbers.ER_DUP_ENTRY) {
+//				throw new DuplicateKeyException(ex.getMessage());				
+//			}
+//			else
+//				throw new RuntimeException(ex);
 		}
-	}
-
-		
+		finally {
+			
+		}
+	}		
 }

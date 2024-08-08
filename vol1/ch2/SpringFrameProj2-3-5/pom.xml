@@ -13,12 +13,12 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-core</artifactId>
-	    <version>5.3.20</version>
+	    <version>6.0.12</version>
 	</dependency>
 	<dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>5.3.20</version>
+        <version>6.0.12</version>
     </dependency>
     
 	
@@ -31,7 +31,7 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-jdbc</artifactId>
-	    <version>5.3.20</version>
+	    <version>6.0.12</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
@@ -49,7 +49,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <release>11</release>
+          <release>17</release>
         </configuration>
       </plugin>
     </plugins>

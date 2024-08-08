@@ -3,6 +3,7 @@ package com.intheeast.springframe.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +16,13 @@ public class UserServiceImpl implements UserService {
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
 	public static final int MIN_RECCOMEND_FOR_GOLD = 30;
 
+	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
 	private MailSender mailSender;
 
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}

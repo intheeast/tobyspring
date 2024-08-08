@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,18 +19,20 @@ import com.intheeast.springframe.dao.TestDaoFactory;
 import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
-
-
+import com.intheeast.springframe.service.UserServiceTest.TestUserService;
+import com.intheeast.springframe.service.UserServiceTest.TestUserServiceException;
 
 import static com.intheeast.springframe.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
 import static com.intheeast.springframe.service.UserService.MIN_RECCOMEND_FOR_GOLD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
 	@Autowired 	UserService userService;	
 	@Autowired UserDao userDao;
+	@Autowired DataSource dataSource;
 	
 	List<User> users;	// test fixture
 	
@@ -47,7 +51,13 @@ public class UserServiceTest {
 	@Test
 	public void upgradeLevels() {
 		userDao.deleteAll();
-		for(User user : users) userDao.add(user);
+		//int i = 0;
+		for(User user : users) {
+			//i++;
+			userDao.add(user);
+		}
+		
+		//System.out.printf("upgradeLevels count number = %d", i);
 		
 		userService.upgradeLevels();
 		
@@ -56,6 +66,8 @@ public class UserServiceTest {
 		checkLevelUpgraded(users.get(2), false);
 		checkLevelUpgraded(users.get(3), true);
 		checkLevelUpgraded(users.get(4), false);
+		
+		
 	}
 	
 	private void checkLevelUpgraded(User user, boolean upgraded) {
@@ -93,5 +105,49 @@ public class UserServiceTest {
 			User userWithoutLevelRead = optionalUserWithoutLevelRead.get();
 			assertEquals(userWithoutLevelRead.getLevel(), Level.BASIC);
 		}		
+	}
+	
+	@Test
+	public void upgradeAllOrNothing() throws Exception {
+		UserService testUserService = 
+				new TestUserService(users.get(3).getId());  // 이상호에 대한 업그레이드 여부 판단시
+															// 사용자 정의 예외를 발생시킨다.
+		
+		testUserService.setUserDao(this.userDao); 
+		testUserService.setDataSource(this.dataSource);
+		 
+		userDao.deleteAll(); 
+		for(User user : users) 
+			userDao.add(user);
+		
+		try {
+			testUserService.upgradeLevels();
+			fail("TestUserServiceException expected"); 
+		}
+		catch(TestUserServiceException e) { 
+			int a = 0;
+			a = 10;
+		}
+		
+		// 원자성을 지켜지지 않는다.!!!
+		checkLevelUpgraded(users.get(1), false); // upgrade됨. 그러므로 이것은 당연히 실패!!!
+	}
+	
+	static class TestUserService extends UserService {
+		private String id;
+		
+		private TestUserService(String id) {  
+			this.id = id;
+		}
+
+		protected void upgradeLevel(User user) {
+			if (user.getId().equals(this.id)) 
+				throw new TestUserServiceException(); // 고의적으로 예외를 발생시킨ㄷ가!!!!
+			
+			super.upgradeLevel(user);  
+		}
+	}
+	
+	static class TestUserServiceException extends RuntimeException {
 	}
 }

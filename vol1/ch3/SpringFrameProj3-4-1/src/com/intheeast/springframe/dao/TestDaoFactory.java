@@ -29,7 +29,7 @@ public class TestDaoFactory {
 		return jdbcContext;
 	}
 
-	@Bean
+	@Bean  // userDao : 빈 이름을 설정하지 않으면 디폴트로 팩토리 메서드 이름으로 명명된다.
 	public UserDao userDao() {
 		UserDao userDao = new UserDao();
 		userDao.setJdbcContext(jdbcContext());

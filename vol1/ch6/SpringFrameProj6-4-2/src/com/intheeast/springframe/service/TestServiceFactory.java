@@ -14,6 +14,7 @@ import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 public class TestServiceFactory {
+	
 	@Bean
 	public DataSource dataSource() {
 		
@@ -23,14 +24,14 @@ public class TestServiceFactory {
 		dataSource.setUrl("jdbc:mysql://localhost:3306/testdb?characterEncoding=UTF-8");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1234");
-
+		
 		return dataSource;
-	}
-	
+	}	
 	
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+		DataSourceTransactionManager dataSourceTransactionManager = 
+				new DataSourceTransactionManager();
 		dataSourceTransactionManager.setDataSource(dataSource());
 		return dataSourceTransactionManager;
 	}
@@ -44,14 +45,16 @@ public class TestServiceFactory {
 
 	@Bean
 	public NameMatchMethodPointcut transactionPointcut() {
-		NameMatchMethodPointcut nameMatchMethodPointcut = new NameMatchMethodPointcut();
+		NameMatchMethodPointcut nameMatchMethodPointcut = 
+				new NameMatchMethodPointcut();
 		nameMatchMethodPointcut.setMappedName("upgrade*");
 		return nameMatchMethodPointcut;
 	}
 
 	@Bean
 	public DefaultPointcutAdvisor transactionAdvisor() {
-		DefaultPointcutAdvisor defaultPointcutAdvisor = new DefaultPointcutAdvisor();
+		DefaultPointcutAdvisor defaultPointcutAdvisor = 
+				new DefaultPointcutAdvisor();
 		defaultPointcutAdvisor.setAdvice(transactionAdvice());
 		defaultPointcutAdvisor.setPointcut(transactionPointcut());
 		return defaultPointcutAdvisor;
@@ -85,7 +88,5 @@ public class TestServiceFactory {
 	public DummyMailSender mailSender() {
 		DummyMailSender dummyMailSender = new DummyMailSender();
 		return dummyMailSender;
-	}
-	
-	
+	}	
 }

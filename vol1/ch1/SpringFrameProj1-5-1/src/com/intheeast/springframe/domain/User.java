@@ -5,6 +5,10 @@ public class User {
 	String name;
 	String password;
 	
+	public User() {
+		
+	}
+	
 	public String getId() {
 		return id;
 	}

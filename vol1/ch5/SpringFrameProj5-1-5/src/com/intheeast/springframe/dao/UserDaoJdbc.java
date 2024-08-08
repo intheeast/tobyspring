@@ -1,9 +1,9 @@
 package com.intheeast.springframe.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -11,24 +11,19 @@ import java.util.stream.Stream;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
+//import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
-import org.springframework.jdbc.support.SQLExceptionTranslator;
+//import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+//import org.springframework.jdbc.support.SQLExceptionTranslator;
 
 import com.intheeast.springframe.domain.Level;
 import com.intheeast.springframe.domain.User;
 
-
-
 public class UserDaoJdbc implements UserDao {
 	
-	//DataSource dataSource;
-	
 	public void setDataSource(DataSource dataSource) {
-		//this.dataSource = dataSource;
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
@@ -108,7 +103,7 @@ public class UserDaoJdbc implements UserDao {
 				+ "where id = ? ", 
 				user.getName(), 
 				user.getPassword(), 
-				user.getLevel().intValue(), 
+				user.getLevel().intValue(), ///////
 				user.getLogin(), 
 				user.getRecommend(),
 				user.getId());

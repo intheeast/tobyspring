@@ -11,7 +11,8 @@ public class UserDaoTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		//ConnectionMaker connectionMaker = new DConnectionMaker();
 		ConnectionMaker connectionMaker = new NConnectionMaker();
-		UserDao dao = new UserDao(connectionMaker);
+		UserDao dao = new UserDao(connectionMaker); // IoC == dependency injection?
+												    
 
 		User user = new User();
 		user.setId("whiteship");

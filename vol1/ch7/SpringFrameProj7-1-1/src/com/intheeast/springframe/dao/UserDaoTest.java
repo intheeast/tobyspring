@@ -151,7 +151,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void update() {
-dao.deleteAll();
+		dao.deleteAll();
 		
 		dao.add(user1);
 		dao.add(user2);

@@ -39,7 +39,8 @@ public class UserDaoTest {
 	}
 	
 	@Test
-	public void addAndGet() throws SQLException, ClassNotFoundException {				
+	public void addAndGet() throws SQLException, ClassNotFoundException {	
+		//Object obj;
 		dao.deleteAll();
 		assertEquals(dao.getCount(), 0);
 		

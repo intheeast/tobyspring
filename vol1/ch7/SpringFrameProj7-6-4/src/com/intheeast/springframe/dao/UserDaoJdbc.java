@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,7 @@ import com.intheeast.springframe.sqlservice.SqlService;
 public class UserDaoJdbc implements UserDao {	
 	
 	@Autowired
+	@Qualifier("jdbcDataSource")
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}

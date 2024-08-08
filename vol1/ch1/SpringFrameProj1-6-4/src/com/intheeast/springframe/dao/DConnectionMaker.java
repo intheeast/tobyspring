@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DConnectionMaker implements ConnectionMaker {
 	
 	/*
-	 <property name="driverClass" value="com.mysql.jdbc.Driver" />
+	    <property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/sbdt_db?characterEncoding=UTF-8" />
 		<property name="username" value="root" />
 		<property name="password" value="1234" /> 
@@ -17,6 +17,10 @@ public class DConnectionMaker implements ConnectionMaker {
 	private String url;
 	private String username;
 	private String password;
+	
+	public DConnectionMaker() {
+		
+	}
 	
 	public void setDriverClass(String driverclass) {
 		this.driverClass = driverclass;

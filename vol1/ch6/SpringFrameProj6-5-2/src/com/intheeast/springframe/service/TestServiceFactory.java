@@ -16,6 +16,7 @@ import com.intheeast.springframe.dao.UserDaoJdbc;
 
 @Configuration
 public class TestServiceFactory {
+	
 	@Bean
 	public DataSource dataSource() {
 		
@@ -40,9 +41,9 @@ public class TestServiceFactory {
 	// aop
 	//<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 	@Bean
-	  public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
-	    return new DefaultAdvisorAutoProxyCreator();
-	  }
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+		return new DefaultAdvisorAutoProxyCreator();
+	}
 	
 	@Bean
 	public TransactionAdvice transactionAdvice() {
@@ -68,7 +69,7 @@ public class TestServiceFactory {
 	}	
 
 	// application components
-	@Bean
+	@Bean/*(name = "hello")*/
 	public UserDaoJdbc userDao() {
 		UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
 		userDaoJdbc.setDataSource(dataSource());
@@ -91,7 +92,8 @@ public class TestServiceFactory {
 		return userServiceImpl;
 	}
 	
-	// <bean id="testUserService" class="springbook.user.service.UserServiceTest$TestUserServiceImpl" parent="userService" />
+	// <bean id="testUserService" 
+	//       class="springbook.user.service.UserServiceTest$TestUserServiceImpl" parent="userService" />
 	@Bean
 	@Qualifier("testUserService")
 	public UserServiceImpl testUserService() {

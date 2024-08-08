@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+// 전략 패턴의 Context...
 public class JdbcContext {
 	DataSource dataSource;
 	
@@ -21,6 +22,7 @@ public class JdbcContext {
 		return dataSource.getConnection();
 	}
 	
+	// doSomething
 	public void workWithStatementStrategy(StatementStrategy stmt) throws SQLException {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -28,6 +30,7 @@ public class JdbcContext {
 		try {
 			c = dataSource.getConnection();
 
+			// 전략 패턴의 execute 메소드를 호출하는 격
 			ps = stmt.makePreparedStatement(c);
 		
 			ps.executeUpdate();

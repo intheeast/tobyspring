@@ -29,6 +29,19 @@ public class UserDao {
 						user.getPassword());
 	}	
 	
+	/*
+	 private RowMapper<User> userRowMapper() {
+		// (rs, rowNum) -> rs.getInt(1)
+        return ((rs, rowNum) -> {
+        	User user = new User();
+        	user.setId(rs.getString("id"));
+        	user.setName(rs.getString("name"));
+        	user.setPassword(rs.getString("password"));            
+            return user;
+        });
+    }	
+	 */
+	
 	private RowMapper<User> userRowMapper = (rs, rowNum) -> {
 	    User user = new User();
 	    user.setId(rs.getString("id"));
@@ -38,11 +51,18 @@ public class UserDao {
 	};
 	
 	public Optional<User> get(String id) {
-	    String sql = "select * from users where id = ?";	
+	    String sql = "select * from users where id = ?";
 	    
-	    //jdbcTemplate.queryForObject(sql, userRowMapper);
+//	    String hello = null; // 참조하는 스트링 클래스 객체가 없다
+//	    hello.toLowerCase(); // object method...
 	    
-	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, userRowMapper, id)) {
+	    //jdbcTemplate.queryForObject(sql, userRowMapper);	    
+	    
+	    try (Stream<User> stream = 
+	    		jdbcTemplate.queryForStream(
+	    				sql, 
+	    				userRowMapper, 
+	    				id)) {
 	        return stream.findFirst();
 	    } catch (DataAccessException e) {
 	        return Optional.empty();
@@ -60,8 +80,9 @@ public class UserDao {
 	}	
 	
 	public List<User> getAll() {
-		return this.jdbcTemplate.query("select * from users order by id",
+		return this.jdbcTemplate.query(
+				"select * from users order by id",
 				userRowMapper
-		);
+				);
 	}	
 }

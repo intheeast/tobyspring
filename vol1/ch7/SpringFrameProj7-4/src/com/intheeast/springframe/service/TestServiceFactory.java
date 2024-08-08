@@ -1,34 +1,21 @@
 package com.intheeast.springframe.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.dao.UserDaoJdbc;
-import com.intheeast.springframe.sqlservice.BaseSqlService;
-import com.intheeast.springframe.sqlservice.DefaultSqlService;
-import com.intheeast.springframe.sqlservice.HashMapSqlRegistry;
-import com.intheeast.springframe.sqlservice.JaxbXmlSqlReader;
 import com.intheeast.springframe.sqlservice.OxmSqlService;
-import com.intheeast.springframe.sqlservice.SimpleSqlService;
-import com.intheeast.springframe.sqlservice.XmlSqlService;
+
 
 @Configuration
 @EnableTransactionManagement
@@ -55,11 +42,9 @@ public class TestServiceFactory {
 	
 	@Bean
 	public OxmSqlService sqlService() {
-		OxmSqlService oxmSqlService = new OxmSqlService();
+		OxmSqlService oxmSqlService = new OxmSqlService();		
 		oxmSqlService.setUnmarshaller(unmarshaller());
-		Resource sqlmap = new ClassPathResource(
-				"/com/intheeast/springframe/dao/sqlmap.xml", 
-				UserDao.class);
+		Resource sqlmap = new ClassPathResource("sqlmap.xml");
 		oxmSqlService.setSqlmap(sqlmap);
 		return oxmSqlService;
 	}

@@ -48,7 +48,7 @@ public class SqlServiceContext {
 		return new EmbeddedDatabaseBuilder()
 			.setName("embeddedDatabase")
 			.setType(EmbeddedDatabaseType.H2)
-			.addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+			.addScript("sqlRegistrySchema.sql")
 			.build();
 	}
 }

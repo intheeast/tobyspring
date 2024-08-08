@@ -15,8 +15,9 @@ public class BaseSqlService implements SqlService {
 		this.sqlRegistry = sqlRegistry;
 	}
 
-	@PostConstruct
+	//@PostConstruct : Spring IoC에 의해 호출될이 없음.
 	public void loadSql() {
+		// this.sqlReader is OxmSqlService.oxmSqlReader
 		this.sqlReader.read(this.sqlRegistry);
 	}
 

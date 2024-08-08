@@ -16,8 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestJunit.class})
 public class JUnitTest {
-	@Autowired 
-	ApplicationContext context;
+	@Autowired
+	ApplicationContext context;////////////////////////////////////////////////////////
 	
 	static Set<JUnitTest> testObjects = new HashSet<>();
 	static ApplicationContext contextObject = null;

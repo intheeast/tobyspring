@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,6 +31,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_LOGCOUNT_FOR_SILVER;
 import static com.intheeast.springframe.service.UserServiceImpl.MIN_RECCOMEND_FOR_GOLD;
 
+
+/*
+ 
+ Client(UserServiceTest) -> UserServiceTx -> UserServiceImpl 
+  
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestServiceFactory.class})
 public class UserServiceTest {
@@ -41,22 +48,24 @@ public class UserServiceTest {
 	@Autowired MailSender mailSender; 
 	@Autowired PlatformTransactionManager transactionManager;
 	
+	@Autowired ApplicationContext context;
+	
 	List<User> users;	// test fixture
 	
 	@BeforeEach
 	public void setUp() {	
 		
 		users = Arrays.asList(
-				new User("bumjin", "�ڹ���", "p1", "user1@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
-				new User("joytouch", "����", "p2", "user2@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
-				new User("erwins", "�Ž���", "p3", "user3@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
-				new User("madnite1", "�̻�ȣ", "p4", "user4@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
-				new User("green", "���α�", "p5", "user5@ksug.org", Level.GOLD, 100, Integer.MAX_VALUE)
+				new User("bumjin", "박범진", "p1", "user1@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
+				new User("joytouch", "강명성", "p2", "user2@ksug.org", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
+				new User("erwins", "신승한", "p3", "user3@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
+				new User("madnite1", "이상호", "p4", "user4@ksug.org", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
+				new User("green", "오민규", "p5", "user5@ksug.org", Level.GOLD, 100, Integer.MAX_VALUE)
 				);
 	}
 	
 	
-	
+	// 고립된 단위 테스트 활용
 	@Test @DirtiesContext
 	public void upgradeLevels() throws Exception {
 		userDao.deleteAll();
@@ -143,7 +152,7 @@ public class UserServiceTest {
 		}		
 	}
 	
-	@Test
+	@Test @DirtiesContext
 	public void add() {
 		userDao.deleteAll();
 		
@@ -167,7 +176,7 @@ public class UserServiceTest {
 		}		
 	}
 	
-	@Test
+	@Test @DirtiesContext
 	public void upgradeAllOrNothing() throws Exception {
 		TestUserService testUserService = new TestUserService(users.get(3).getId());  
 		testUserService.setUserDao(this.userDao); 

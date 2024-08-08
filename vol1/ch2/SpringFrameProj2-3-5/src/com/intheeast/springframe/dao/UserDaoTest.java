@@ -31,7 +31,8 @@ public class UserDaoTest {
 		
 	@BeforeEach
 	public void setUp() {	
-		ApplicationContext context = new AnnotationConfigApplicationContext(TestDaoFactory.class);
+		ApplicationContext context = 
+				new AnnotationConfigApplicationContext(TestDaoFactory.class);
 		
 		this.dao = context.getBean("userDao", UserDao.class);
 		user1 = new User("user1", "sungkim", "5678");
@@ -84,7 +85,15 @@ public class UserDaoTest {
 //		}
 		
 		Assertions.assertThrows(EmptyResultDataAccessException.class, 
-				() -> {dao.get("unknown_id");});	
+				// Excutable 인터페이스의 excute 메소드의 람다!!!
+				() -> dao.get("unknown_id"));	
 	}	
+	
+	/*
+	 void execute() throws Throwable {
+	 	dao.get("unknown_id");
+	 }
+	 -->
+	 */
 
 }

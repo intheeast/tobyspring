@@ -52,12 +52,17 @@ public class TestServiceFactory {
 	
 	@Bean
 	public JavaMailSenderImpl mailSenderImpl() {
+		// https://goodteacher.tistory.com/8 참조
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		
 		mailSenderImpl.setJavaMailProperties(properites());
 		
 		mailSenderImpl.setHost("smtp.gmail.com");
 		mailSenderImpl.setPort(587); // TLS : 587, SSL : 465
+		// 구글 계정이 swseokitec@gmail.com인 경우, 
+		// SMTP 설정에서 사용할 사용자 이름(User name)은 
+		// 이 이메일 주소 그대로인 swseokitec@gmail.com입니다. 
+		// SMTP 설정 시 이메일 주소 전체를 사용자 이름으로 사용하는 것이 일반적입니다.
 		mailSenderImpl.setUsername("swseokitec@gmail.com"); 
 		mailSenderImpl.setPassword("kmwmvsbajccozsxc");
 		return mailSenderImpl;
@@ -71,6 +76,8 @@ public class TestServiceFactory {
         return props;
 	}
 	
+	
+	// 우리가 직접 configuration 한다.
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
 		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();

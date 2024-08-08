@@ -12,7 +12,8 @@ import com.intheeast.springframe.service.UserServiceTest.TestUserService;
 public class TestAppContext {
 	@Bean
 	public UserService testUserService() {
-		return new TestUserService();
+		TestUserService userService = new TestUserService();		
+		return userService;
 	}
 	
 	@Bean

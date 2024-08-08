@@ -41,12 +41,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
+@ActiveProfiles("test")  ////////////////
 @ContextConfiguration(classes=AppContext.class)
 public class UserServiceTest {
 	@Autowired UserService userService;	
 	@Autowired UserService testUserService;
-	@Autowired UserDao userDao;
+	@Autowired UserDao userDao; // userDaoJdbc의 이름의 빈이 주입이 되는냐?
+								// :그렇다. UserDao 인터페이스를 구현한 구체가 현재 프로젝트에서는
+								//  userDaoJdbc 이름을 가지는 빈 밖에 없으므로.
 	@Autowired MailSender mailSender;
 	@Autowired PlatformTransactionManager transactionManager;
 	@Autowired ApplicationContext context;

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 
 import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.sqlservice.jaxb.SqlType;
@@ -71,6 +71,7 @@ public class XmlSqlService implements SqlService {
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			InputStream is = UserDao.class.getResourceAsStream(sqlmapFile);
 			Sqlmap sqlmap = (Sqlmap)unmarshaller.unmarshal(is);
+			
 			for(SqlType sql : sqlmap.getSql()) {
 				sqlRegistry.registerSql(sql.getKey(), sql.getValue());
 			}

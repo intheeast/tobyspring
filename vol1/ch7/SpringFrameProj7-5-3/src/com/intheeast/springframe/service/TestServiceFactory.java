@@ -1,17 +1,17 @@
 package com.intheeast.springframe.service;
 
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.HashMap;
+//import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Primary;
+//import org.springframework.context.annotation.EnableAspectJAutoProxy;
+//import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+//import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -19,20 +19,12 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionManager;
+//import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+//import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import com.intheeast.springframe.dao.UserDao;
 import com.intheeast.springframe.dao.UserDaoJdbc;
-import com.intheeast.springframe.sqlservice.BaseSqlService;
-import com.intheeast.springframe.sqlservice.DefaultSqlService;
-import com.intheeast.springframe.sqlservice.HashMapSqlRegistry;
-import com.intheeast.springframe.sqlservice.JaxbXmlSqlReader;
 import com.intheeast.springframe.sqlservice.OxmSqlService;
-import com.intheeast.springframe.sqlservice.SimpleSqlService;
-import com.intheeast.springframe.sqlservice.XmlSqlService;
-import com.intheeast.springframe.sqlservice.updatable.ConcurrentHashMapSqlRegistry;
 import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
@@ -75,14 +67,16 @@ public class TestServiceFactory {
 	
 	@Bean
     public DataSource embeddedDatabase() {
-        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql"));
+//        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+////        databasePopulator.addScript(new ClassPathResource("com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql"));
+//        databasePopulator.addScript(new ClassPathResource("sqlRegistrySchema.sql"));
 
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .setName("embeddedDatabase")
                 .setScriptEncoding("UTF-8")
-                .addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+//                .addScript("classpath:com/intheeast/springframe/sqlservice/updatable/sqlRegistrySchema.sql")
+                .addScript("sqlRegistrySchema.sql")
                 .build();
     }
 

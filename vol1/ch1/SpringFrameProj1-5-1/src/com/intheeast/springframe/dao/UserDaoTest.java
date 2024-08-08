@@ -9,11 +9,20 @@ import com.intheeast.springframe.domain.User;
 
 
 public class UserDaoTest {
+	public static int ret() {
+		return 1;
+	}
+	// JRE
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		ApplicationContext context = 
-				new AnnotationConfigApplicationContext(DaoFactory.class);
+				new AnnotationConfigApplicationContext(DaoFactory.class); // Spring IoC Container
+																		  // BeanFactory + ApplicationContext
 		
 		System.out.println("hello world");
+		
+		int a = 3;
+		int b = a;
+		int c = ret();
 		
 		UserDao dao = context.getBean("userDao", UserDao.class);
 

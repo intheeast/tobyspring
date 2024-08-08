@@ -17,19 +17,20 @@ import com.intheeast.springframe.domain.User;
 
 public class UserDaoJdbc implements UserDao {
 	
+	private JdbcTemplate jdbcTemplate;
+	
 	public UserDaoJdbc() {
 		System.out.println("UserDaoJdbc DConstructor");
 	}
 	
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-	
-	private JdbcTemplate jdbcTemplate;
+	}	
 	
 	private RowMapper<User> userMapper = 
 			new RowMapper<User>() {
-					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+					public User mapRow(ResultSet rs, int rowNum) 
+							throws SQLException {
 					User user = new User();
 					user.setId(rs.getString("id"));
 					user.setName(rs.getString("name"));
@@ -51,7 +52,8 @@ public class UserDaoJdbc implements UserDao {
 	public Optional<User> get(String id) {
 		String sql = "select * from users where id = ?";	    		
 	    
-	    try (Stream<User> stream = jdbcTemplate.queryForStream(sql, this.userMapper, id)) {
+	    try (Stream<User> stream = 
+	    		jdbcTemplate.queryForStream(sql, this.userMapper, id)) {
 	        return stream.findFirst();
 	    } catch (DataAccessException e) {
 	        return Optional.empty();
@@ -74,6 +76,7 @@ public class UserDaoJdbc implements UserDao {
 	@Override
 	public int getCount() {
 		List<Integer> result = jdbcTemplate.query("select count(*) from users", 
+				// T mapRow(ResultSet rs, int rowNum) throws SQLException;
 	    		(rs, rowNum) -> rs.getInt(1));
 	    return (int) DataAccessUtils.singleResult(result);
 	}

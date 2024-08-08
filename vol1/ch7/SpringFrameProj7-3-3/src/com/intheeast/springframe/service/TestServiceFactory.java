@@ -57,9 +57,13 @@ public class TestServiceFactory {
 	public OxmSqlService sqlService() {
 		OxmSqlService oxmSqlService = new OxmSqlService();
 		oxmSqlService.setUnmarshaller(unmarshaller());
+//		Resource sqlmap = new ClassPathResource(
+//				"sqlmap.xml"/*"/com/intheeast/springframe/dao/sqlmap.xml"*/, 
+//				UserDao.class);
+		
 		Resource sqlmap = new ClassPathResource(
-				"sqlmap.xml"/*"/com/intheeast/springframe/dao/sqlmap.xml"*/, 
-				UserDao.class);
+				"sqlmap.xml");
+		
 		oxmSqlService.setSqlmap(sqlmap);
 		return oxmSqlService;
 	}

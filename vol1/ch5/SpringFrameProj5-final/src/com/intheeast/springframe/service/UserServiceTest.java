@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeUtility;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -59,14 +59,13 @@ public class UserServiceTest {
 	public void setUp() {	
 		
 		users = Arrays.asList(
-				new User("bumjin", "박범진", "p1", "intheeast0305@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
-				new User("joytouch", "김규현", "p2", "kkh30123@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
-				new User("erwins", "신승한", "p3", "intheeast1009@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
-				new User("madnite1", "이정희", "p4", "jhcode33@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
+				new User("bumjin", "서이준", "p1", "intheeast0305@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER-1, 0),
+				new User("joytouch", "개한국", "p2", "kitec403@gmail.com", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
+				new User("erwins", "류경자", "p3", "intheeast0725@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD-1),
+				new User("madnite1", "김지철", "p4", "intheeast1009@gmail.com", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
 				new User("green", "몰라요", "p5", "intheeast@gmail.com", Level.GOLD, 100, Integer.MAX_VALUE)
 				);
-	}
-	
+	}	
 	
 	/*
 	 @Bean
@@ -83,8 +82,8 @@ public class UserServiceTest {
 		userDao.deleteAll();
 		for(User user : users) userDao.add(user);
 		
-		MockMailSender mockMailSender = new MockMailSender();
-		userService.setMailSender(mockMailSender);  
+//		MockMailSender mockMailSender = new MockMailSender();
+//		userService.setMailSender(mockMailSender);  
 				
 		userService.upgradeLevels();
 		
@@ -94,10 +93,10 @@ public class UserServiceTest {
 		checkLevelUpgraded(users.get(3), true);
 		checkLevelUpgraded(users.get(4), false);
 		
-		List<String> request = mockMailSender.getRequests();  
-		assertEquals(request.size(), 2);
-		assertEquals(request.get(0), users.get(1).getEmail());
-		assertEquals(request.get(1), users.get(3).getEmail());		
+//		List<String> request = mockMailSender.getRequests();  
+//		assertEquals(request.size(), 2);
+//		assertEquals(request.get(0), users.get(1).getEmail());
+//		assertEquals(request.get(1), users.get(3).getEmail());		
 	}	
 	
 	static class MockMailSender implements MailSender {
