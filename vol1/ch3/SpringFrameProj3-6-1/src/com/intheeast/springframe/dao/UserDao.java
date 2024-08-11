@@ -8,6 +8,13 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+// 어떻게 JdbcTemplate이 템플릿 메서드 패턴을 사용하는지:
+// JdbcTemplate은 데이터베이스에 접근하는 반복적인 단계들(예: SQL 실행, 예외 처리, 리소스 해제 등)을 캡슐화하여, 
+// (이러한 단계들은 어떤 데이터베이스와의 트랜잭션 CRUD 작업을 수행하더라도 순차적으로 수행합니다)
+// 사용자가 이러한 작업을 직접 작성할 필요 없이 편리하게 데이터베이스 작업을 수행할 수 있도록 합니다. 
+// 템플릿 메서드 패턴의 원리에 따라, 
+// JdbcTemplate은 기본적인 데이터베이스 접근 로직을 정의하고, 
+// 특정 작업(예: 각 row을 객체로 매핑하는 작업)은 클라이언트 코드에서 구현하도록 합니다.
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.intheeast.springframe.domain.User;
