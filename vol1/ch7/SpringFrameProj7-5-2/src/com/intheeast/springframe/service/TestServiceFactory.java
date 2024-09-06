@@ -37,7 +37,7 @@ import com.intheeast.springframe.sqlservice.updatable.EmbeddedDbSqlRegistry;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "springframe")
+@ComponentScan(basePackages = "com.intheeast.springframe")
 public class TestServiceFactory {	
 	
 	@Bean
